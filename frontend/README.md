@@ -1,7 +1,8 @@
 # React + Vite
 
 npm create vite@latest
-cd frontend
+
+## Para ejecutar: 
 npm install
 npm run dev
 

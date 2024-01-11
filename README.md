@@ -1,6 +1,6 @@
-npx create-react-app ffmm-frontend 
-cd ffmm-frontend 
-npm start
+cd frontend
+npm install
+npm run dev
 
 
 
