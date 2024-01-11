@@ -4,6 +4,8 @@ import FiltroFondos from './FiltroFondos';
 import Buscador from './Buscador';
 import ListaFondos from './ListaFondos';
 import { Col, Row } from 'antd';
+import NavBarImage from './assets/NavBar.png';
+import './CSS/FondosMutuosPage.css';
 
 
 const FondosMutuosPage = () => {
@@ -23,39 +25,52 @@ const FondosMutuosPage = () => {
     const [fondosMutuos, setFondosMutuos] = useState([
         {
             id: 1,
-            nombre: 'Fondo A',
+            nombre: 'AMERIS LIQUIDEZ FM',
             categoria: 'Renta Variable',
             administradora: 'Admin 1',
             tipoMoneda: 'USD',
             rescatabilidad: 'Liquidez Diaria',
             riesgo: 'Bajo',
-            serie: 'S1',
-            YTD: 10.5,
-            mensual: 2.3,
-            anual: 8.1,
-            nivelDeRiesgo: 'Moderado',
+            serie: 'A',
+            YTD: '10.5%',
+            mensual: '2.3%',
+            anual: '8.1%',
             linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_A.pdf',
             linkFicha: 'https://ejemplo.com/ficha_A.pdf',
             linkInvertir: 'https://ejemplo.com/invertir_A',
         },
         {
             id: 2,
-            nombre: 'Fondo B',
+            nombre: 'BTG HIGH YIELD',
             categoria: 'Renta Fija',
             administradora: 'Admin 2',
             tipoMoneda: 'EUR',
             rescatabilidad: 'Plazo Fijo',
             riesgo: 'Moderado',
-            serie: 'S2',
-            YTD: 8.2,
-            mensual: 1.8,
-            anual: 6.5,
-            nivelDeRiesgo: 'Bajo',
+            serie: 'B',
+            YTD: '8.2%',
+            mensual: '-1.8%',
+            anual: '-6.5%',
             linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_B.pdf',
             linkFicha: 'https://ejemplo.com/ficha_B.pdf',
             linkInvertir: 'https://ejemplo.com/invertir_B',
         },
-        // Agrega más fondos según sea necesario
+        {
+            id: 3,
+            nombre: 'GESTIÃ“N CONSERVADORA',
+            categoria: 'Renta Variable',
+            administradora: 'Admin 3',
+            tipoMoneda: 'CLP',
+            rescatabilidad: 'Plazo Fijo',
+            riesgo: 'Alto',
+            serie: 'X',
+            YTD: '8.2%',
+            mensual: '-1.8%',
+            anual: '-6.5%',
+            linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_B.pdf',
+            linkFicha: 'https://ejemplo.com/ficha_B.pdf',
+            linkInvertir: 'https://ejemplo.com/invertir_B',
+        },
     ]);
 
 
@@ -86,13 +101,33 @@ const FondosMutuosPage = () => {
 
     return (
         <>
-            <Row>
-                <Col span={10} style={{paddingLeft: "5%"}}> <FiltroFondos onFiltroChange={handleFiltroChange}  /></Col>
-                <Col span={14} style={{paddingLeft: "5%", paddingRight: "5%"}}>
-                    <Row> <Buscador onBusquedaChange={handleBusquedaChange} /></Row>
-                    <Row > <ListaFondos fondos={fondosFiltrados} /></Row>
+            <Row className='first-row'>
+                <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
+            </Row>
+            <Row className="row-filtros">
+                <Col span={8} style={{ paddingLeft: "4%" }}>
+                    <FiltroFondos onFiltroChange={handleFiltroChange} />
+                </Col>
+                <Col span={16} style={{ paddingLeft: "3%" }}>
+                    <Row className='row-searcher'>
+                        <Buscador onBusquedaChange={handleBusquedaChange} />
+                    </Row>
+                    <Row className='row-lista-fondos'>
+                        <ListaFondos fondos={fondosFiltrados} />
+                    </Row>
                 </Col>
             </Row>
+
+            {/* <Row  className="first-row">
+                <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
+            </Row>
+            <Row>
+                <Col span={8} style={{ paddingLeft: "4%" }}> <FiltroFondos onFiltroChange={handleFiltroChange} /></Col>
+                <Col span={16} style={{ paddingLeft: "3%" }}>
+                    <Row className='row-searcher'> <Buscador onBusquedaChange={handleBusquedaChange} /></Row>
+                    <Row > <ListaFondos fondos={fondosFiltrados} /></Row>
+                </Col>
+            </Row> */}
         </>
 
     );

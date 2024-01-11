@@ -1,10 +1,10 @@
-// FiltroFondos.js
 import React, { useState } from 'react';
-import { Select, Space } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Flex, Tooltip } from 'antd';
+import { Button, Flex, Tooltip, Col, Row, FloatButton, Select, Space } from 'antd';
 import Container from 'react-bootstrap/Container';
-import { Col, Row, FloatButton } from 'antd';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import filterImage from './assets/filter.jpg';
+import './CSS/FiltroFondos.css';
 
 const options = [
 
@@ -41,79 +41,202 @@ const FiltroFondos = ({ onFiltroChange }) => {
     };
 
     return (
+        <div class="card  border-primary mb-3" >
+            <div class="card-header text-primary">
+                <img src={filterImage} alt="Imagen de filtro" className="filtro-imagen" />
+                <strong className="filtro-texto">Filtros</strong>
+            </div>
+            <div class="card-body">
 
-        <div>
-            <Row >
-                <Col span={20}>
-                    <Space
-                        direction="vertical"
-                        style={{
-                            width: '100%',
-                        }}
-                    >
-                        <Select {...selectProps} />
-                    </Space>
-                </Col>
-                <Col span={4}>
-                    <Tooltip title="AFG son administradoras generales de fondos">
-                        <Button shape="circle" icon={<QuestionCircleOutlined />} />
-                    </Tooltip>
-                </Col>
-            </Row>
+                <div>
+                    <Row>
+                        <Col>
+                            <p>Administradora General de Fondos</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Entidad que administrar fondos de inversión y fondos mutuos.">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
 
-            <Row>
-                  <div>
-                    <p>Filtrar por Categoría</p>
-                    <select onChange={(e) => onFiltroChange('categoria', e.target.value)}>
-                        <option value="">Todos</option>
-                        {opcionesFiltro.categoria.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
-                        ))}
-                    </select>
 
-                    <p>Filtrar por Administradora</p>
-                    <select onChange={(e) => onFiltroChange('administradora', e.target.value)}>
-                        <option value="">Todos</option>
-                        {opcionesFiltro.administradora.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
-                        ))}
-                    </select>
-                 <p>Filtrar por Tipo de Moneda</p>
-                    <select onChange={(e) => onFiltroChange('tipoMoneda', e.target.value)}>
-                        <option value="">Todos</option>
-                        {opcionesFiltro.tipoMoneda.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
-                        ))}
-                    </select>
+                    <Row>
+                        <Col>
+                            <p>Tipo de fondos</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Categorías que agrupan a los fondos mutuos según tus objetivos de inversión, estrategias y activos subyacentes.">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
 
-                    <p>Filtrar por Rescatabilidad</p>
-                    <select onChange={(e) => onFiltroChange('rescatabilidad', e.target.value)}>
-                        <option value="">Todos</option>
-                        {opcionesFiltro.rescatabilidad.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
-                        ))}
-                    </select>
 
-                    <p>Filtrar por Nivel de Riesgo</p>
-                    <select onChange={(e) => onFiltroChange('riesgo', e.target.value)}>
-                        <option value="">Todos</option>
-                        {opcionesFiltro.riesgo.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
-                        ))}
-                    </select>
+                    <Row>
+                        <Col>
+                            <p>Tipo de moneda</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Moneda específica utilizada en transacciones.">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
+
+
+                    <Row>
+                        <Col>
+                            <p>Nivel de riesgo</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Medida de la probabilidad de pérdida o variabilidad en el rendimiento de una inversión.">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
+
+
+                    <Row>
+                        <Col>
+                            <p>Rescatabilidad</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Capacidad de recuperar o redimir una inversión antes de su vencimiento o término. ">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
+
+
+                    <Row className='reset-filter'>
+                        {/* <Button type="primary" danger ghost block>
+                            Reiniciar filtros
+                        </Button> */}
+                        <Button  type="primary" ghost block>Reiniciar filtros</Button>
+                    </Row>
+
+
+
+
+                    {/* 
+
+
+                    <Row>
+                        <div>
+                            <p>Filtrar por Categoría</p>
+                            <select onChange={(e) => onFiltroChange('categoria', e.target.value)}>
+                                <option value="">Todos</option>
+                                {opcionesFiltro.categoria.map((opcion) => (
+                                    <option key={opcion} value={opcion}>
+                                        {opcion}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <p>Filtrar por Administradora</p>
+                            <select onChange={(e) => onFiltroChange('administradora', e.target.value)}>
+                                <option value="">Todos</option>
+                                {opcionesFiltro.administradora.map((opcion) => (
+                                    <option key={opcion} value={opcion}>
+                                        {opcion}
+                                    </option>
+                                ))}
+                            </select>
+                            <p>Filtrar por Tipo de Moneda</p>
+                            <select onChange={(e) => onFiltroChange('tipoMoneda', e.target.value)}>
+                                <option value="">Todos</option>
+                                {opcionesFiltro.tipoMoneda.map((opcion) => (
+                                    <option key={opcion} value={opcion}>
+                                        {opcion}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <p>Filtrar por Rescatabilidad</p>
+                            <select onChange={(e) => onFiltroChange('rescatabilidad', e.target.value)}>
+                                <option value="">Todos</option>
+                                {opcionesFiltro.rescatabilidad.map((opcion) => (
+                                    <option key={opcion} value={opcion}>
+                                        {opcion}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <p>Filtrar por Nivel de Riesgo</p>
+                            <select onChange={(e) => onFiltroChange('riesgo', e.target.value)}>
+                                <option value="">Todos</option>
+                                {opcionesFiltro.riesgo.map((opcion) => (
+                                    <option key={opcion} value={opcion}>
+                                        {opcion}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </Row> */}
                 </div>
-            </Row>
-        </div>
+            </div>
+        </div >
     );
 };
 

@@ -1,0 +1,24 @@
+.imagen-fija {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  z-index: 9999;
+}
+
+.first-row {
+  margin-bottom: 5%;
+}
+
+.row-searcher {
+  margin-bottom: 3%;
+}
+
+.row-searcher,
+.row-lista-fondos {
+  width: 100%;
+}
+
+.row-lista-fondos {
+  margin-left: 1%; /* Ajusta el margen izquierdo según sea necesario */
+}

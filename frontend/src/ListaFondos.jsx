@@ -1,7 +1,10 @@
 import React from 'react';
-import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import './CSS/ListaFondos.css';  // Importa el archivo CSS
+import lowRiskImage from './assets/low.jpg';
+import moderateRiskImage from './assets/medium.jpg';
+import highRiskImage from './assets/high.jpg';
 
 const ListaFondos = ({ fondos }) => (
   <div>
@@ -14,8 +17,8 @@ const ListaFondos = ({ fondos }) => (
           <th>YTD</th>
           <th>Mensual</th>
           <th>Anual</th>
-          <th>Nivel de Riesgo</th>
-          <th>Reglamento Interno</th>
+          <th>Riesgo</th>
+          <th>Reglamento</th>
           <th>Ficha</th>
           <th>Invertir</th>
         </tr>
@@ -23,16 +26,27 @@ const ListaFondos = ({ fondos }) => (
       <tbody>
         {fondos.map((fondo) => (
           <tr key={fondo.id}>
-            <td><strong>{fondo.nombre}</strong></td>
+            <td>{fondo.nombre}</td>
             <td>{fondo.categoria}</td>
             <td>{fondo.serie}</td>
-            <td>{fondo.YTD}</td>
-            <td>{fondo.mensual}</td>
-            <td>{fondo.anual}</td>
-            <td>{fondo.nivelDeRiesgo}</td>
+            <td className={fondo.YTD.startsWith('-') ? 'rojo' : 'verde'}>{fondo.YTD}</td>
+            <td className={fondo.mensual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.mensual}</td>
+            <td className={fondo.anual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.anual}</td>
+            <td>
+              {fondo.riesgo === 'Bajo' && (
+                <img src={lowRiskImage} alt="Bajo Riesgo" />
+              )}
+              {fondo.riesgo === 'Moderado' && (
+                <img src={moderateRiskImage} alt="Moderado Riesgo" />
+              )}
+              {fondo.riesgo === 'Alto' && (
+                <img src={highRiskImage} alt="Alto Riesgo" />
+              )}
+            </td>
             <td>
               <Tooltip title="Descargar Reglamento Interno">
                 <Button
+                  // type="primary" ghost
                   shape="circle"
                   icon={<FilePdfOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
@@ -42,6 +56,7 @@ const ListaFondos = ({ fondos }) => (
             <td>
               <Tooltip title="Descargar Ficha">
                 <Button
+                  // type="primary" ghost
                   shape="circle"
                   icon={<FileTextOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
@@ -49,8 +64,9 @@ const ListaFondos = ({ fondos }) => (
               </Tooltip>
             </td>
             <td>
-              <Tooltip title="Invertir">
+              <Tooltip title="Invertir en este fondo">
                 <Button
+                  type="primary" ghost
                   shape="circle"
                   icon={<MoneyCollectTwoTone />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}

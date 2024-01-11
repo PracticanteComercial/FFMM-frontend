@@ -2,13 +2,13 @@
 
 npm create vite@latest
 cd frontend
-  npm install
-  npm run dev
+npm install
+npm run dev
 
 ## Recursos utiles
 iconos:
-reglamento interno: <FilePdfOutlined />
-descargar ficha: <FileTextOutlined />
+reglamento interno: <FilePdfOutlined /> 
+descargar ficha:  <FileTextOutlined />
 invertir: <MoneyCollectTwoTone />
 
 

@@ -23,12 +23,13 @@ const Buscador = ({ onBusquedaChange }) => {
                     allowClear
                     onSearch={onSearch}
                     style={{
-                        width: 650,
+                        width: 700,
                     }}
                     onChange={(e) => onBusquedaChange(e.target.value)}
                 />
             </Space>
-        </div>
+            
+        </div >
     );
 };
 

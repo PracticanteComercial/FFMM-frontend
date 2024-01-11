@@ -1,0 +1,16 @@
+.filtro-imagen {
+    max-width: 100%;
+    height: auto;
+    max-height: 1em;
+    margin-bottom: 1%;
+}
+
+
+.filtro-texto {
+    margin-left: 10px; /* Ajusta el valor según el espacio que deseas entre la imagen y el texto */
+  }
+
+
+.reset-filter {
+    margin-top: 5%;
+}
