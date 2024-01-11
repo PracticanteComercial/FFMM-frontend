@@ -7,10 +7,22 @@
 
 
 .filtro-texto {
-    margin-left: 10px; /* Ajusta el valor según el espacio que deseas entre la imagen y el texto */
-  }
+    margin-left: 10px;
+    /* Ajusta el valor según el espacio que deseas entre la imagen y el texto */
+}
 
 
 .reset-filter {
     margin-top: 5%;
+}
+
+
+.card-body p {
+    padding-top: 3px;
+}
+
+
+p {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }

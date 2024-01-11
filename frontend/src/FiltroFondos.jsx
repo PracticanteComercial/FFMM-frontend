@@ -40,6 +40,10 @@ const FiltroFondos = ({ onFiltroChange }) => {
         riesgo: ['Bajo', 'Moderado', 'Alto'], // Agrega las opciones de nivel de riesgo
     };
 
+    const handleFiltroChange = (tipoFiltro, newValue) => {
+        onFiltroChange(tipoFiltro, newValue);
+    };
+
     return (
         <div class="card  border-primary mb-3" >
             <div class="card-header text-primary">
@@ -51,31 +55,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
                 <div>
                     <Row>
                         <Col>
-                            <p>Administradora General de Fondos</p>
-                        </Col>
-                        <Col>
-                            <Tooltip title="Entidad que administrar fondos de inversión y fondos mutuos.">
-                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
-                            </Tooltip>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col span={24}>
-                            <Space
-                                direction="vertical"
-                                style={{
-                                    width: '100%',
-                                }}
-                            >
-                                <Select {...selectProps} />
-                            </Space>
-                        </Col>
-                    </Row>
-
-
-                    <Row>
-                        <Col>
-                            <p>Tipo de fondos</p>
+                            <p>Tipo de fondo</p>
                         </Col>
                         <Col>
                             <Tooltip title="Categorías que agrupan a los fondos mutuos según tus objetivos de inversión, estrategias y activos subyacentes.">
@@ -89,6 +69,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
                                 direction="vertical"
                                 style={{
                                     width: '100%',
+                                    marginBottom: '4%'
                                 }}
                             >
                                 <Select {...selectProps} />
@@ -99,7 +80,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
 
                     <Row>
                         <Col>
-                            <p>Tipo de moneda</p>
+                            <p>Moneda</p>
                         </Col>
                         <Col>
                             <Tooltip title="Moneda específica utilizada en transacciones.">
@@ -113,6 +94,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
                                 direction="vertical"
                                 style={{
                                     width: '100%',
+                                    marginBottom: '4%'
                                 }}
                             >
                                 <Select {...selectProps} />
@@ -137,6 +119,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
                                 direction="vertical"
                                 style={{
                                     width: '100%',
+                                    marginBottom: '4%'
                                 }}
                             >
                                 <Select {...selectProps} />
@@ -161,6 +144,31 @@ const FiltroFondos = ({ onFiltroChange }) => {
                                 direction="vertical"
                                 style={{
                                     width: '100%',
+                                    marginBottom: '4%'
+                                }}
+                            >
+                                <Select {...selectProps} />
+                            </Space>
+                        </Col>
+                    </Row>
+
+
+                    <Row>
+                        <Col>
+                            <p>Administradora General de Fondos</p>
+                        </Col>
+                        <Col>
+                            <Tooltip title="Entidad que administrar fondos de inversión y fondos mutuos.">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col span={24}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
                                 }}
                             >
                                 <Select {...selectProps} />
@@ -173,15 +181,9 @@ const FiltroFondos = ({ onFiltroChange }) => {
                         {/* <Button type="primary" danger ghost block>
                             Reiniciar filtros
                         </Button> */}
-                        <Button  type="primary" ghost block>Reiniciar filtros</Button>
+                        <Button type="primary" ghost block>Reiniciar filtros</Button>
                     </Row>
-
-
-
-
                     {/* 
-
-
                     <Row>
                         <div>
                             <p>Filtrar por Categoría</p>

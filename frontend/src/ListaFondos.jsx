@@ -14,9 +14,9 @@ const ListaFondos = ({ fondos }) => (
           <th>Fondo</th>
           <th>Categoría</th>
           <th>Serie</th>
+          <th>1M</th>
           <th>YTD</th>
-          <th>Mensual</th>
-          <th>Anual</th>
+          <th>12M</th>
           <th>Riesgo</th>
           <th>Reglamento</th>
           <th>Ficha</th>
@@ -29,8 +29,8 @@ const ListaFondos = ({ fondos }) => (
             <td>{fondo.nombre}</td>
             <td>{fondo.categoria}</td>
             <td>{fondo.serie}</td>
-            <td className={fondo.YTD.startsWith('-') ? 'rojo' : 'verde'}>{fondo.YTD}</td>
             <td className={fondo.mensual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.mensual}</td>
+            <td className={fondo.YTD.startsWith('-') ? 'rojo' : 'verde'}>{fondo.YTD}</td>
             <td className={fondo.anual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.anual}</td>
             <td>
               {fondo.riesgo === 'Bajo' && (
