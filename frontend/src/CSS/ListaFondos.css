@@ -3,7 +3,6 @@ table {
   border-collapse: collapse;
 }
 
-
 th,
 td {
   padding: 8px;
@@ -28,7 +27,6 @@ td:first-child {
   font-weight: bold;
   width: 16%;
 }
-
 
 td:nth-child(2) {
   width: 16%;
@@ -55,12 +53,10 @@ td img {
   height: auto;
 }
 
-
 td:nth-child(3),
 td:nth-child(7),
 td:nth-child(8),
 td:nth-child(9),
 td:nth-child(10) {
   text-align: center;
-  /* Centro para las columnas "Reglamento", "Ficha" e "Invertir" */
 }

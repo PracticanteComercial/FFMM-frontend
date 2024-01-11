@@ -57,7 +57,7 @@ const FondosMutuosPage = () => {
         },
         {
             id: 3,
-            nombre: 'GESTIÃ“N CONSERVADORA',
+            nombre: 'GESTIÃ“N CONSERVADORA 2024',
             categoria: 'Renta Variable',
             administradora: 'Admin 3',
             tipoMoneda: 'CLP',
