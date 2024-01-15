@@ -1,10 +1,11 @@
 import React from 'react';
 import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import './CSS/ListaFondos.css';  // Importa el archivo CSS
+import './CSS/ListaFondos.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
+
 
 const ListaFondos = ({ fondos }) => (
   <div>
@@ -26,20 +27,20 @@ const ListaFondos = ({ fondos }) => (
       <tbody>
         {fondos.map((fondo) => (
           <tr key={fondo.id}>
-            <td>{fondo.nombre}</td>
-            <td>{fondo.categoria}</td>
-            <td>{fondo.serie}</td>
-            <td className={fondo.mensual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.mensual}</td>
-            <td className={fondo.YTD.startsWith('-') ? 'rojo' : 'verde'}>{fondo.YTD}</td>
-            <td className={fondo.anual.startsWith('-') ? 'rojo' : 'verde'}>{fondo.anual}</td>
+            <td>{fondo.name}</td>
+            <td>{fondo.type}</td>
+            <td>{fondo.series}</td>
+            <td className={fondo.monthly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.monthly}</td>
+            <td className={fondo.ytd.startsWith('-') ? 'rojo' : 'verde'}>{fondo.ytd}</td>
+            <td className={fondo.yearly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.yearly}</td>
             <td>
-              {fondo.riesgo === 'Bajo' && (
+              {fondo.rickLevel === 'Bajo' && (
                 <img src={lowRiskImage} alt="Bajo Riesgo" />
               )}
-              {fondo.riesgo === 'Moderado' && (
+              {fondo.rickLevel === 'Moderado' && (
                 <img src={moderateRiskImage} alt="Moderado Riesgo" />
               )}
-              {fondo.riesgo === 'Alto' && (
+              {fondo.rickLevel === 'Alto' && (
                 <img src={highRiskImage} alt="Alto Riesgo" />
               )}
             </td>

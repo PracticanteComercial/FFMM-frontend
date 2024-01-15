@@ -24,11 +24,11 @@ const Buscador = ({ onBusquedaChange }) => {
                     onSearch={onSearch}
                     style={{
                         width: '100%',
+                        maxWidth: '100%'
                     }}
                     onChange={(e) => onBusquedaChange(e.target.value)}
                 />
             </Space>
-            
         </div >
     );
 };

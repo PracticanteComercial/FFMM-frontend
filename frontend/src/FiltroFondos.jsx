@@ -158,7 +158,7 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             <p>Administradora General de Fondos</p>
                         </Col>
                         <Col>
-                            <Tooltip title="Entidad que administrar fondos de inversión y fondos mutuos.">
+                            <Tooltip title="Entidad que administra fondos de inversión y fondos mutuos.">
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </Col>

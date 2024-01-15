@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FiltroFondos from './FiltroFondos';
 import Buscador from './Buscador';
@@ -6,9 +6,30 @@ import ListaFondos from './ListaFondos';
 import { Col, Row } from 'antd';
 import NavBarImage from './assets/NavBar.png';
 import './CSS/FondosMutuosPage.css';
+import { Pagination } from 'antd';
 
 
 const FondosMutuosPage = () => {
+    const [ffmms, setFfmm] = useState([]);
+    const fetchFfmmData = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/FFMMs');
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setFfmm(data.FFMMs);
+            console.log("FFMM of bdd");
+            console.log(data.FFMMs);
+        } catch (error) {
+            console.error('Error fetching FFMM data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchFfmmData();
+    }, []);
+
+
     // Estado para los filtros seleccionados
     const [filtros, setFiltros] = useState({
         categoria: null,
@@ -74,6 +95,10 @@ const FondosMutuosPage = () => {
     ]);
 
 
+    console.log("fondosMutuos");
+    console.log(fondosMutuos);
+
+
     // Función para manejar cambios en los filtros
     const handleFiltroChange = (tipoFiltro, nuevoFiltro) => {
         setFiltros((prevFiltros) => ({
@@ -88,7 +113,7 @@ const FondosMutuosPage = () => {
     };
 
     // Filtrar fondos según los filtros seleccionados
-    const fondosFiltrados = fondosMutuos.filter((fondo) => {
+    const fondosFiltrados = ffmms.filter((fondo) => {
         for (const tipoFiltro in filtros) {
             if (filtros[tipoFiltro] && fondo[tipoFiltro] !== filtros[tipoFiltro]) {
                 return false;
@@ -96,7 +121,7 @@ const FondosMutuosPage = () => {
         }
 
         // Aplicar filtro de búsqueda
-        return fondo.nombre.toLowerCase().includes(busqueda.toLowerCase());
+        return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
 
     return (
@@ -104,13 +129,18 @@ const FondosMutuosPage = () => {
             <Row className='first-row'>
                 <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
             </Row>
-            <Row className="row-filtros">
+            <Row className="row-filtros" style={{ marginTop: "10%" }}>
                 <Col span={8} style={{ paddingLeft: "4%" }}>
                     <FiltroFondos onFiltroChange={handleFiltroChange} />
                 </Col>
-                <Col span={16} style={{ paddingLeft: "3%" }}>
+                <Col span={16} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>
-                        <Buscador onBusquedaChange={handleBusquedaChange} />
+                        <Col>
+                            <Buscador onBusquedaChange={handleBusquedaChange} />
+                        </Col>
+                        <Col>
+                            <Pagination simple defaultCurrent={1} total={500} defaultPageSize={20} />
+                        </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
                         <ListaFondos fondos={fondosFiltrados} />
