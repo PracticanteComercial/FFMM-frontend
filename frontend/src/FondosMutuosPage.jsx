@@ -11,6 +11,8 @@ import { Pagination } from 'antd';
 
 const FondosMutuosPage = () => {
     const [ffmms, setFfmm] = useState([]);
+    const [quantityOfFFMM, setQuantityOfFFMM] = useState(0);
+
     const fetchFfmmData = async () => {
         try {
             const response = await fetch('http://localhost:3001/FFMMs');
@@ -19,8 +21,7 @@ const FondosMutuosPage = () => {
             }
             const data = await response.json();
             setFfmm(data.FFMMs);
-            console.log("FFMM of bdd");
-            console.log(data.FFMMs);
+            setQuantityOfFFMM(data.FFMMs.length);
         } catch (error) {
             console.error('Error fetching FFMM data:', error);
         }
@@ -30,74 +31,27 @@ const FondosMutuosPage = () => {
     }, []);
 
 
+
+
     // Estado para los filtros seleccionados
     const [filtros, setFiltros] = useState({
-        categoria: null,
-        administradora: null,
-        tipoMoneda: null,
-        rescatabilidad: null,
-        riesgo: null,
+        type: [],
+        agf: [],
+        money: [],
+        rescueability: [],
+        rickLevel: [],
     });
+
+    const opcionesFiltro = {
+        type: ffmms.map(fondo => fondo.type).filter((value, index, self) => self.indexOf(value) === index),
+        agf: ffmms.map(fondo => fondo.agf).filter((value, index, self) => self.indexOf(value) === index),
+        money: ffmms.map(fondo => fondo.money).filter((value, index, self) => self.indexOf(value) === index),
+        rescueability: ffmms.map(fondo => fondo.rescueability).filter((value, index, self) => self.indexOf(value) === index),
+        rickLevel: ffmms.map(fondo => fondo.rickLevel).filter((value, index, self) => self.indexOf(value) === index)
+    };
 
     // Estado para la búsqueda
     const [busqueda, setBusqueda] = useState('');
-
-    // Estado para la lista de fondos mutuos (simulado, deberías obtenerlo de tu backend)
-    const [fondosMutuos, setFondosMutuos] = useState([
-        {
-            id: 1,
-            nombre: 'AMERIS LIQUIDEZ FM',
-            categoria: 'Renta Variable',
-            administradora: 'Admin 1',
-            tipoMoneda: 'USD',
-            rescatabilidad: 'Liquidez Diaria',
-            riesgo: 'Bajo',
-            serie: 'A',
-            YTD: '10.5%',
-            mensual: '2.3%',
-            anual: '8.1%',
-            linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_A.pdf',
-            linkFicha: 'https://ejemplo.com/ficha_A.pdf',
-            linkInvertir: 'https://ejemplo.com/invertir_A',
-        },
-        {
-            id: 2,
-            nombre: 'BTG HIGH YIELD',
-            categoria: 'Renta Fija',
-            administradora: 'Admin 2',
-            tipoMoneda: 'EUR',
-            rescatabilidad: 'Plazo Fijo',
-            riesgo: 'Moderado',
-            serie: 'B',
-            YTD: '8.2%',
-            mensual: '-1.8%',
-            anual: '-6.5%',
-            linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_B.pdf',
-            linkFicha: 'https://ejemplo.com/ficha_B.pdf',
-            linkInvertir: 'https://ejemplo.com/invertir_B',
-        },
-        {
-            id: 3,
-            nombre: 'GESTIÃ“N CONSERVADORA 2024',
-            categoria: 'Renta Variable',
-            administradora: 'Admin 3',
-            tipoMoneda: 'CLP',
-            rescatabilidad: 'Plazo Fijo',
-            riesgo: 'Alto',
-            serie: 'X',
-            YTD: '8.2%',
-            mensual: '-1.8%',
-            anual: '-6.5%',
-            linkReglamentoInterno: 'https://ejemplo.com/reglamento_interno_B.pdf',
-            linkFicha: 'https://ejemplo.com/ficha_B.pdf',
-            linkInvertir: 'https://ejemplo.com/invertir_B',
-        },
-    ]);
-
-
-    console.log("fondosMutuos");
-    console.log(fondosMutuos);
-
 
     // Función para manejar cambios en los filtros
     const handleFiltroChange = (tipoFiltro, nuevoFiltro) => {
@@ -114,24 +68,44 @@ const FondosMutuosPage = () => {
 
     // Filtrar fondos según los filtros seleccionados
     const fondosFiltrados = ffmms.filter((fondo) => {
+        console.log("fondo: ", fondo);
         for (const tipoFiltro in filtros) {
-            if (filtros[tipoFiltro] && fondo[tipoFiltro] !== filtros[tipoFiltro]) {
-                return false;
+            if (filtros[tipoFiltro].length > 0) {
+                if (filtros[tipoFiltro] && !filtros[tipoFiltro].includes(fondo[tipoFiltro])) {
+                    // if (tipoFiltro === 'type') {
+                    //     console.log("IF: ", fondo[tipoFiltro], "NO está dentro de ", filtros[tipoFiltro]);
+                    // }
+                    return false;
+                }
+                // else {
+                //     if (tipoFiltro === 'type') {
+                //         console.log("ELSE ", fondo[tipoFiltro], "está dentro de ", filtros[tipoFiltro]);
+                //     }
+                // }
             }
         }
-
         // Aplicar filtro de búsqueda
         return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
+
+    const handleResetFiltros = () => {
+        setFiltros({
+            type: [],
+            agf: [],
+            money: [],
+            rescueability: [],
+            rickLevel: [],
+        });
+    };
 
     return (
         <>
             <Row className='first-row'>
                 <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
             </Row>
-            <Row className="row-filtros" style={{ marginTop: "10%" }}>
+            <Row className="row-filtros" style={{ marginTop: "10%", marginBottom: "5%" }}>
                 <Col span={8} style={{ paddingLeft: "4%" }}>
-                    <FiltroFondos onFiltroChange={handleFiltroChange} />
+                    <FiltroFondos opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                 </Col>
                 <Col span={16} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>
@@ -139,7 +113,7 @@ const FondosMutuosPage = () => {
                             <Buscador onBusquedaChange={handleBusquedaChange} />
                         </Col>
                         <Col>
-                            <Pagination simple defaultCurrent={1} total={500} defaultPageSize={20} />
+                            <Pagination simple defaultCurrent={1} total={quantityOfFFMM} defaultPageSize={20} hideOnSinglePage={true} />
                         </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
@@ -147,19 +121,7 @@ const FondosMutuosPage = () => {
                     </Row>
                 </Col>
             </Row>
-
-            {/* <Row  className="first-row">
-                <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
-            </Row>
-            <Row>
-                <Col span={8} style={{ paddingLeft: "4%" }}> <FiltroFondos onFiltroChange={handleFiltroChange} /></Col>
-                <Col span={16} style={{ paddingLeft: "3%" }}>
-                    <Row className='row-searcher'> <Buscador onBusquedaChange={handleBusquedaChange} /></Row>
-                    <Row > <ListaFondos fondos={fondosFiltrados} /></Row>
-                </Col>
-            </Row> */}
         </>
-
     );
 };
 

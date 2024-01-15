@@ -6,16 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import filterImage from './assets/filter.jpg';
 import './CSS/FiltroFondos.css';
 
-const options = [
 
-    { label: 'AMERIS CAPITAL', value: 'AMERIS CAPITAL' },
-    { label: 'BTG PACTUAL', value: 'BTG PACTUAL' },
-    { label: 'COMPASS GROUP CHILE S.A.', value: 'COMPASS' },
-    { label: 'MBI', value: 'MBI' },
-    { label: 'PRINCIPAL', value: 'PRINCIPAL' },
-];
 
-const FiltroFondos = ({ onFiltroChange }) => {
+const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
     const [value, setValue] = useState([]);
     // const [value, setValue] = useState(['AMERIS CAPITAL', 'BTG PACTUAL', 'COMPASS', 'MBI', 'PRINCIPAL']);
     const selectProps = {
@@ -24,7 +17,10 @@ const FiltroFondos = ({ onFiltroChange }) => {
             width: '100%',
         },
         value,
-        options,
+        options: opcionesFiltro.agf.map((opcion) => ({
+            label: opcion,
+            value: opcion,
+        })),
         onChange: (newValue) => {
             setValue(newValue);
         },
@@ -32,25 +28,18 @@ const FiltroFondos = ({ onFiltroChange }) => {
         maxTagCount: 'responsive',
     };
 
-    const opcionesFiltro = {
-        categoria: ['Renta Variable', 'Renta Fija', 'Mixto'],
-        administradora: ['Admin 1', 'Admin 2', 'Admin 3'], // Agrega las opciones de administradoras
-        tipoMoneda: ['USD', 'EUR', 'JPY'], // Agrega las opciones de tipo de moneda
-        rescatabilidad: ['Liquidez Diaria', 'Plazo Fijo'], // Agrega las opciones de rescatabilidad
-        riesgo: ['Bajo', 'Moderado', 'Alto'], // Agrega las opciones de nivel de riesgo
-    };
-
     const handleFiltroChange = (tipoFiltro, newValue) => {
         onFiltroChange(tipoFiltro, newValue);
     };
+    
 
     return (
-        <div class="card  border-primary mb-3" >
-            <div class="card-header text-primary">
+        <div className="card  border-primary mb-3" >
+            <div className="card-header text-primary">
                 <img src={filterImage} alt="Imagen de filtro" className="filtro-imagen" />
                 <strong className="filtro-texto">Filtros</strong>
             </div>
-            <div class="card-body">
+            <div className="card-body">
 
                 <div>
                     <Row>
@@ -63,21 +52,32 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             </Tooltip>
                         </Col>
                     </Row>
-                    <Row >
+                    <Row>
                         <Col span={24}>
                             <Space
                                 direction="vertical"
                                 style={{
                                     width: '100%',
-                                    marginBottom: '4%'
+                                    marginBottom: '4%',
                                 }}
                             >
-                                <Select {...selectProps} />
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: '100%' }}
+                                    placeholder="Tipo de Fondo"
+                                    onChange={(newValue) => handleFiltroChange('type', newValue)}
+                                >
+                                    {opcionesFiltro.type.map((opcion) => (
+                                        <Select.Option key={opcion} value={opcion}>
+                                            {opcion}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </Space>
                         </Col>
                     </Row>
 
-
+                   
                     <Row>
                         <Col>
                             <p>Moneda</p>
@@ -88,16 +88,27 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             </Tooltip>
                         </Col>
                     </Row>
-                    <Row >
+                    <Row>
                         <Col span={24}>
                             <Space
                                 direction="vertical"
                                 style={{
                                     width: '100%',
-                                    marginBottom: '4%'
+                                    marginBottom: '4%',
                                 }}
                             >
-                                <Select {...selectProps} />
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: '100%' }}
+                                    placeholder="Moneda"
+                                    onChange={(newValue) => handleFiltroChange('money', newValue)}
+                                >
+                                    {opcionesFiltro.money.map((opcion) => (
+                                        <Select.Option key={opcion} value={opcion}>
+                                            {opcion}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </Space>
                         </Col>
                     </Row>
@@ -113,16 +124,27 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             </Tooltip>
                         </Col>
                     </Row>
-                    <Row >
+                    <Row>
                         <Col span={24}>
                             <Space
                                 direction="vertical"
                                 style={{
                                     width: '100%',
-                                    marginBottom: '4%'
+                                    marginBottom: '4%',
                                 }}
                             >
-                                <Select {...selectProps} />
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: '100%' }}
+                                    placeholder="Nivel de Riesgo"
+                                    onChange={(newValue) => handleFiltroChange('rickLevel', newValue)}
+                                >
+                                    {opcionesFiltro.rickLevel.map((opcion) => (
+                                        <Select.Option key={opcion} value={opcion}>
+                                            {opcion}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </Space>
                         </Col>
                     </Row>
@@ -138,21 +160,32 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             </Tooltip>
                         </Col>
                     </Row>
-                    <Row >
+                    <Row>
                         <Col span={24}>
                             <Space
                                 direction="vertical"
                                 style={{
                                     width: '100%',
-                                    marginBottom: '4%'
+                                    marginBottom: '4%',
                                 }}
                             >
-                                <Select {...selectProps} />
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: '100%' }}
+                                    placeholder="Rescatabilidad"
+                                    onChange={(newValue) => handleFiltroChange('rescueability', newValue)}
+                                >
+                                    {opcionesFiltro.rescueability.map((opcion) => (
+                                        <Select.Option key={opcion} value={opcion}>
+                                            {opcion}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </Space>
                         </Col>
                     </Row>
 
-
+ 
                     <Row>
                         <Col>
                             <p>Administradora General de Fondos</p>
@@ -163,15 +196,27 @@ const FiltroFondos = ({ onFiltroChange }) => {
                             </Tooltip>
                         </Col>
                     </Row>
-                    <Row >
+                    <Row>
                         <Col span={24}>
                             <Space
                                 direction="vertical"
                                 style={{
                                     width: '100%',
+                                    marginBottom: '4%',
                                 }}
                             >
-                                <Select {...selectProps} />
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: '100%' }}
+                                    placeholder="Administradora"
+                                    onChange={(newValue) => handleFiltroChange('agf', newValue)}
+                                >
+                                    {opcionesFiltro.agf.map((opcion) => (
+                                        <Select.Option key={opcion} value={opcion}>
+                                            {opcion}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </Space>
                         </Col>
                     </Row>
@@ -181,8 +226,9 @@ const FiltroFondos = ({ onFiltroChange }) => {
                         {/* <Button type="primary" danger ghost block>
                             Reiniciar filtros
                         </Button> */}
-                        <Button type="primary" ghost block>Reiniciar filtros</Button>
+                        <Button type="primary" ghost block onClick={() => handleResetFiltros()}>Reiniciar filtros</Button>
                     </Row>
+
                     {/* 
                     <Row>
                         <div>
