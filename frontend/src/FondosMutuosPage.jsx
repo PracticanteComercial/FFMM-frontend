@@ -43,12 +43,12 @@ const FondosMutuosPage = () => {
     });
 
     const opcionesFiltro = {
-        type: ffmms.map(fondo => fondo.type).filter((value, index, self) => self.indexOf(value) === index),
-        agf: ffmms.map(fondo => fondo.agf).filter((value, index, self) => self.indexOf(value) === index),
-        money: ffmms.map(fondo => fondo.money).filter((value, index, self) => self.indexOf(value) === index),
-        rescueability: ffmms.map(fondo => fondo.rescueability).filter((value, index, self) => self.indexOf(value) === index),
-        rickLevel: ffmms.map(fondo => fondo.rickLevel).filter((value, index, self) => self.indexOf(value) === index)
-    };
+        type: ffmms.map(fondo => fondo.type).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
+        agf: ffmms.map(fondo => fondo.agf).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
+        money: ffmms.map(fondo => fondo.money).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
+        rescueability: ffmms.map(fondo => fondo.rescueability).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
+        rickLevel: ffmms.map(fondo => fondo.rickLevel).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index)
+    };    
 
     // Estado para la búsqueda
     const [busqueda, setBusqueda] = useState('');
@@ -68,7 +68,7 @@ const FondosMutuosPage = () => {
 
     // Filtrar fondos según los filtros seleccionados
     const fondosFiltrados = ffmms.filter((fondo) => {
-        console.log("fondo: ", fondo);
+        // console.log("fondo: ", fondo);
         for (const tipoFiltro in filtros) {
             if (filtros[tipoFiltro].length > 0) {
                 if (filtros[tipoFiltro] && !filtros[tipoFiltro].includes(fondo[tipoFiltro])) {
