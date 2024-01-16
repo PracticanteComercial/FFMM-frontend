@@ -1,24 +1,31 @@
 table {
   width: 100%;
-  border-collapse: collapse;
+  max-width: 100%;
+  /* border-collapse: collapse; */
+  table-layout: fixed; 
 }
+
+
 
 th,
 td {
-  padding: 8px;
+  padding-bottom: 1%;
   border-bottom: 1px solid #dddddd;
   text-align: left;
 }
 
-th {
-  background-color: #f2f2f2;
+th:first-child {
+  width: 16%;
+}
+
+th:nth-child(2) {
+  width: 16%;
 }
 
 td {
   width: 6%;
-  padding: 8px;
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  padding-bottom: 0.7%;
+  padding-top: 0.7%;
   text-align: left;
 }
 
@@ -49,7 +56,7 @@ td:first-child {
 }
 
 td img {
-  max-width: 55%;
+  max-width: 40%;
   height: auto;
 }
 
@@ -59,4 +66,13 @@ td:nth-child(8),
 td:nth-child(9),
 td:nth-child(10) {
   text-align: center;
+}
+
+th:nth-child(3),
+th:nth-child(7),
+th:nth-child(8),
+th:nth-child(9),
+th:nth-child(10) {
+  text-align: center;
+  width: 5%;
 }

@@ -4,6 +4,8 @@ import FiltroFondos from './FiltroFondos';
 import Buscador from './Buscador';
 import ListaFondos from './ListaFondos';
 import { Col, Row } from 'antd';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 import NavBarImage from './assets/NavBar.png';
 import './CSS/FondosMutuosPage.css';
 import { Pagination } from 'antd';
@@ -12,6 +14,7 @@ import { Pagination } from 'antd';
 const FondosMutuosPage = () => {
     const [ffmms, setFfmm] = useState([]);
     const [quantityOfFFMM, setQuantityOfFFMM] = useState(0);
+    const [quantityPerPageOfFFMM, setQuantityPerPageOfFFMM] = useState(20);
 
     const fetchFfmmData = async () => {
         try {
@@ -30,10 +33,6 @@ const FondosMutuosPage = () => {
         fetchFfmmData();
     }, []);
 
-
-
-
-    // Estado para los filtros seleccionados
     const [filtros, setFiltros] = useState({
         type: [],
         agf: [],
@@ -48,7 +47,7 @@ const FondosMutuosPage = () => {
         money: ffmms.map(fondo => fondo.money).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
         rescueability: ffmms.map(fondo => fondo.rescueability).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
         rickLevel: ffmms.map(fondo => fondo.rickLevel).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index)
-    };    
+    };
 
     // Estado para la búsqueda
     const [busqueda, setBusqueda] = useState('');
@@ -72,31 +71,22 @@ const FondosMutuosPage = () => {
         for (const tipoFiltro in filtros) {
             if (filtros[tipoFiltro].length > 0) {
                 if (filtros[tipoFiltro] && !filtros[tipoFiltro].includes(fondo[tipoFiltro])) {
-                    // if (tipoFiltro === 'type') {
-                    //     console.log("IF: ", fondo[tipoFiltro], "NO está dentro de ", filtros[tipoFiltro]);
-                    // }
                     return false;
                 }
-                // else {
-                //     if (tipoFiltro === 'type') {
-                //         console.log("ELSE ", fondo[tipoFiltro], "está dentro de ", filtros[tipoFiltro]);
-                //     }
-                // }
             }
         }
         // Aplicar filtro de búsqueda
         return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
 
-    const handleResetFiltros = () => {
-        setFiltros({
-            type: [],
-            agf: [],
-            money: [],
-            rescueability: [],
-            rickLevel: [],
-        });
-    };
+
+
+    // const [fondosFiltradosParaPaginacion, setFondosFiltradosParaPaginacion] = useState([]);
+
+    // const onChangeCurrentPage = (page) => {
+    //     setFondosFiltradosParaPaginacion(fondosFiltrados.slice((page - 1) * quantityPerPageOfFFMM, (page - 1) * quantityPerPageOfFFMM + quantityPerPageOfFFMM));
+    //     console.log(fondosFiltradosParaPaginacion);
+    // }
 
     return (
         <>
@@ -104,23 +94,25 @@ const FondosMutuosPage = () => {
                 <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
             </Row>
             <Row className="row-filtros" style={{ marginTop: "10%", marginBottom: "5%" }}>
-                <Col span={8} style={{ paddingLeft: "4%" }}>
+                <Col span={6} style={{ paddingLeft: "4%" }}>
                     <FiltroFondos opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                 </Col>
-                <Col span={16} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
+                <Col span={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>
                         <Col>
                             <Buscador onBusquedaChange={handleBusquedaChange} />
                         </Col>
-                        <Col>
-                            <Pagination simple defaultCurrent={1} total={quantityOfFFMM} defaultPageSize={20} hideOnSinglePage={true} />
-                        </Col>
+                        {/* <Col>
+                            <Pagination simple onChange={onChangeCurrentPage} defaultCurrent={1} total={quantityOfFFMM} defaultPageSize={quantityPerPageOfFFMM} />
+                        </Col> */}
                     </Row>
                     <Row className='row-lista-fondos'>
                         <ListaFondos fondos={fondosFiltrados} />
                     </Row>
                 </Col>
             </Row>
+
+         
         </>
     );
 };

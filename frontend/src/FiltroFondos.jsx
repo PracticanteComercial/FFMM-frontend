@@ -9,29 +9,18 @@ import './CSS/FiltroFondos.css';
 
 
 const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
-    const [value, setValue] = useState([]);
-    // const [value, setValue] = useState(['AMERIS CAPITAL', 'BTG PACTUAL', 'COMPASS', 'MBI', 'PRINCIPAL']);
-    const selectProps = {
-        mode: 'multiple',
-        style: {
-            width: '100%',
-        },
-        value,
-        options: opcionesFiltro.agf.map((opcion) => ({
-            label: opcion,
-            value: opcion,
-        })),
-        onChange: (newValue) => {
-            setValue(newValue);
-        },
-        placeholder: 'AGF',
-        maxTagCount: 'responsive',
-    };
 
     const handleFiltroChange = (tipoFiltro, newValue) => {
         onFiltroChange(tipoFiltro, newValue);
     };
-    
+
+    const handleResetFiltros = () => {
+        onFiltroChange('type', []);
+        onFiltroChange('agf', []);
+        onFiltroChange('money', []);
+        onFiltroChange('rescueability', []);
+        onFiltroChange('rickLevel', []);
+    }
 
     return (
         <div className="card  border-primary mb-3" >
@@ -63,8 +52,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             >
                                 <Select
                                     mode="multiple"
+                                    allowClear
                                     style={{ width: '100%' }}
-                                    placeholder="Tipo de Fondo"
+                                    placeholder="Todos los tipos de fondo"
                                     onChange={(newValue) => handleFiltroChange('type', newValue)}
                                 >
                                     {opcionesFiltro.type.map((opcion) => (
@@ -77,7 +67,7 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                         </Col>
                     </Row>
 
-                   
+
                     <Row>
                         <Col>
                             <p>Moneda</p>
@@ -99,8 +89,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             >
                                 <Select
                                     mode="multiple"
+                                    allowClear
                                     style={{ width: '100%' }}
-                                    placeholder="Moneda"
+                                    placeholder="Todo tipo de moneda"
                                     onChange={(newValue) => handleFiltroChange('money', newValue)}
                                 >
                                     {opcionesFiltro.money.map((opcion) => (
@@ -135,8 +126,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             >
                                 <Select
                                     mode="multiple"
+                                    allowClear
                                     style={{ width: '100%' }}
-                                    placeholder="Nivel de Riesgo"
+                                    placeholder="Todos los niveles"
                                     onChange={(newValue) => handleFiltroChange('rickLevel', newValue)}
                                 >
                                     {opcionesFiltro.rickLevel.map((opcion) => (
@@ -148,7 +140,6 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             </Space>
                         </Col>
                     </Row>
-
 
                     <Row>
                         <Col>
@@ -171,8 +162,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             >
                                 <Select
                                     mode="multiple"
+                                    allowClear
                                     style={{ width: '100%' }}
-                                    placeholder="Rescatabilidad"
+                                    placeholder="Todas las rescatabilidades"
                                     onChange={(newValue) => handleFiltroChange('rescueability', newValue)}
                                 >
                                     {opcionesFiltro.rescueability.map((opcion) => (
@@ -185,7 +177,7 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                         </Col>
                     </Row>
 
- 
+
                     <Row>
                         <Col>
                             <p>Administradora General de Fondos</p>
@@ -207,8 +199,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                             >
                                 <Select
                                     mode="multiple"
+                                    allowClear
                                     style={{ width: '100%' }}
-                                    placeholder="Administradora"
+                                    placeholder="Todas las administradoras"
                                     onChange={(newValue) => handleFiltroChange('agf', newValue)}
                                 >
                                     {opcionesFiltro.agf.map((opcion) => (
@@ -221,66 +214,8 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                         </Col>
                     </Row>
 
-
-                    <Row className='reset-filter'>
-                        {/* <Button type="primary" danger ghost block>
-                            Reiniciar filtros
-                        </Button> */}
+                    {/*                <Row className='reset-filter'>
                         <Button type="primary" ghost block onClick={() => handleResetFiltros()}>Reiniciar filtros</Button>
-                    </Row>
-
-                    {/* 
-                    <Row>
-                        <div>
-                            <p>Filtrar por Categoría</p>
-                            <select onChange={(e) => onFiltroChange('categoria', e.target.value)}>
-                                <option value="">Todos</option>
-                                {opcionesFiltro.categoria.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <p>Filtrar por Administradora</p>
-                            <select onChange={(e) => onFiltroChange('administradora', e.target.value)}>
-                                <option value="">Todos</option>
-                                {opcionesFiltro.administradora.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-                            <p>Filtrar por Tipo de Moneda</p>
-                            <select onChange={(e) => onFiltroChange('tipoMoneda', e.target.value)}>
-                                <option value="">Todos</option>
-                                {opcionesFiltro.tipoMoneda.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <p>Filtrar por Rescatabilidad</p>
-                            <select onChange={(e) => onFiltroChange('rescatabilidad', e.target.value)}>
-                                <option value="">Todos</option>
-                                {opcionesFiltro.rescatabilidad.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <p>Filtrar por Nivel de Riesgo</p>
-                            <select onChange={(e) => onFiltroChange('riesgo', e.target.value)}>
-                                <option value="">Todos</option>
-                                {opcionesFiltro.riesgo.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
                     </Row> */}
                 </div>
             </div>
