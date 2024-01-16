@@ -1,29 +1,27 @@
 table {
   width: 100%;
   max-width: 100%;
-  /* border-collapse: collapse; */
-  table-layout: fixed; 
+  table-layout: fixed;
 }
-
-
 
 th,
 td {
   padding-bottom: 1%;
   border-bottom: 1px solid #dddddd;
+  padding-right: 1%;
   text-align: left;
 }
 
 th:first-child {
-  width: 16%;
+  width: 17%;
 }
 
 th:nth-child(2) {
-  width: 16%;
+  width: 17%;
 }
 
 td {
-  width: 6%;
+  width: 8.25%;
   padding-bottom: 0.7%;
   padding-top: 0.7%;
   text-align: left;
@@ -74,5 +72,5 @@ th:nth-child(8),
 th:nth-child(9),
 th:nth-child(10) {
   text-align: center;
-  width: 5%;
+  width: 8.25%;
 }

@@ -94,10 +94,10 @@ const FondosMutuosPage = () => {
                 <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
             </Row>
             <Row className="row-filtros" style={{ marginTop: "10%", marginBottom: "5%" }}>
-                <Col span={6} style={{ paddingLeft: "4%" }}>
+                <Col xs={24} xl={6}   style={{ paddingLeft: "4%" }}>
                     <FiltroFondos opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                 </Col>
-                <Col span={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
+                <Col xs={24} xl={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>
                         <Col>
                             <Buscador onBusquedaChange={handleBusquedaChange} />
@@ -112,7 +112,7 @@ const FondosMutuosPage = () => {
                 </Col>
             </Row>
 
-         
+
         </>
     );
 };
