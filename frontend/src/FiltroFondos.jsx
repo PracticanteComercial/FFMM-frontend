@@ -19,7 +19,7 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
         onFiltroChange('agf', []);
         onFiltroChange('money', []);
         onFiltroChange('rescueability', []);
-        onFiltroChange('rickLevel', []);
+        onFiltroChange('riskLevel', []);
     }
 
     return (
@@ -129,9 +129,9 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todos los niveles"
-                                    onChange={(newValue) => handleFiltroChange('rickLevel', newValue)}
+                                    onChange={(newValue) => handleFiltroChange('riskLevel', newValue)}
                                 >
-                                    {opcionesFiltro.rickLevel.map((opcion) => (
+                                    {opcionesFiltro.riskLevel.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>
                                             {opcion}
                                         </Select.Option>

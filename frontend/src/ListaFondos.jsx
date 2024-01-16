@@ -5,7 +5,7 @@ import './CSS/ListaFondos.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
-
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const ListaFondos = ({ fondos }) => (
   <div>
@@ -13,11 +13,24 @@ const ListaFondos = ({ fondos }) => (
       <thead>
         <tr>
           <th>Fondo</th>
+          <th>AGF</th>
           <th>Categoría</th>
           <th>Serie</th>
-          <th>1M</th>
-          <th>YTD</th>
-          <th>12M</th>
+          <th>1M
+            <Tooltip title="Rentabilidad de 1 mes">
+              <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
+            </Tooltip>
+          </th>
+          <th>YTD
+          <Tooltip title="Rentabilidad Year-to-Date, también conocido como Año hasta la Fecha o Acumulado del Año">
+              <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
+            </Tooltip>
+          </th>
+          <th>12M
+          <Tooltip title="Rentabilidad de 12 mes">
+              <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
+            </Tooltip>
+          </th>
           <th>Riesgo</th>
           <th>Reglamento</th>
           <th>Ficha</th>
@@ -28,19 +41,20 @@ const ListaFondos = ({ fondos }) => (
         {fondos.map((fondo) => (
           <tr key={fondo.id}>
             <td>{fondo.name}</td>
+            <td>{fondo.agf}</td>
             <td>{fondo.type}</td>
             <td>{fondo.series}</td>
             <td className={fondo.monthly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.monthly}</td>
             <td className={fondo.ytd.startsWith('-') ? 'rojo' : 'verde'}>{fondo.ytd}</td>
             <td className={fondo.yearly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.yearly}</td>
             <td>
-              {fondo.rickLevel === 'Bajo' && (
+              {fondo.riskLevel === 'Bajo' && (
                 <img src={lowRiskImage} alt="Bajo Riesgo" />
               )}
-              {fondo.rickLevel === 'Moderado' && (
+              {fondo.riskLevel === 'Moderado' && (
                 <img src={moderateRiskImage} alt="Moderado Riesgo" />
               )}
-              {fondo.rickLevel === 'Alto' && (
+              {fondo.riskLevel === 'Alto' && (
                 <img src={highRiskImage} alt="Alto Riesgo" />
               )}
             </td>

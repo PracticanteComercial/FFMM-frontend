@@ -13,17 +13,15 @@ const Buscador = ({ onBusquedaChange }) => {
                     placeholder="Buscador de Fondos"
                     allowClear
                     onSearch={onSearch}
-                    size="medium"
+                    size="middle"
                     style={{
-                        width: 900,
+                        width: '65vw',
                         marginLeft: '2%',
                         marginRight: '2%',
                         maxWidth: '96%',
                     }}
                     onChange={(e) => onBusquedaChange(e.target.value)}
                 />
-
-               
             </Space>
         </div >
     );

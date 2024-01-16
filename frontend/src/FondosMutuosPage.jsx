@@ -23,6 +23,7 @@ const FondosMutuosPage = () => {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
+            console.log(data.FFMMs);
             setFfmm(data.FFMMs);
             setQuantityOfFFMM(data.FFMMs.length);
         } catch (error) {
@@ -38,7 +39,7 @@ const FondosMutuosPage = () => {
         agf: [],
         money: [],
         rescueability: [],
-        rickLevel: [],
+        riskLevel: [],
     });
 
     const opcionesFiltro = {
@@ -46,7 +47,7 @@ const FondosMutuosPage = () => {
         agf: ffmms.map(fondo => fondo.agf).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
         money: ffmms.map(fondo => fondo.money).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
         rescueability: ffmms.map(fondo => fondo.rescueability).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index),
-        rickLevel: ffmms.map(fondo => fondo.rickLevel).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index)
+        riskLevel: ffmms.map(fondo => fondo.riskLevel).filter(Boolean).filter((value, index, self) => self.indexOf(value) === index)
     };
 
     // Estado para la búsqueda
@@ -78,9 +79,7 @@ const FondosMutuosPage = () => {
         // Aplicar filtro de búsqueda
         return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
-
-
-
+    
     // const [fondosFiltradosParaPaginacion, setFondosFiltradosParaPaginacion] = useState([]);
 
     // const onChangeCurrentPage = (page) => {
