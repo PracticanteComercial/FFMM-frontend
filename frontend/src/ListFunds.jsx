@@ -1,13 +1,13 @@
 import React from 'react';
 import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import './CSS/ListaFondos.css';
+import './CSS/ListFunds.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
-const ListaFondos = ({ fondos }) => (
+const ListFunds = ({ fondos }) => (
   <div>
     <table>
       <thead>
@@ -66,7 +66,6 @@ const ListaFondos = ({ fondos }) => (
             <td>
               <Tooltip title="Descargar Reglamento Interno">
                 <Button
-                  // type="primary" ghost
                   shape="circle"
                   icon={<FilePdfOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
@@ -76,7 +75,6 @@ const ListaFondos = ({ fondos }) => (
             <td>
               <Tooltip title="Descargar Ficha">
                 <Button
-                  // type="primary" ghost
                   shape="circle"
                   icon={<FileTextOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
@@ -100,4 +98,4 @@ const ListaFondos = ({ fondos }) => (
   </div>
 );
 
-export default ListaFondos;
+export default ListFunds;

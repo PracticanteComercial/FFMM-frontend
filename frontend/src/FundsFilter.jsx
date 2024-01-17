@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Flex, Tooltip, Col, Row, FloatButton, Select, Space } from 'antd';
-import Container from 'react-bootstrap/Container';
+import { Button, Tooltip, Col, Row, Select, Space } from 'antd';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import filterImage from './assets/filter.jpg';
-import './CSS/FiltroFondos.css';
+import './CSS/FundsFilter.css';
 
 
-
-const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
+const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
     const handleFiltroChange = (tipoFiltro, newValue) => {
         onFiltroChange(tipoFiltro, newValue);
@@ -29,7 +27,6 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                 <strong className="filtro-texto">Filtros</strong>
             </div>
             <div className="card-body">
-
                 <div>
                     <Row>
                         <Col>
@@ -141,6 +138,7 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
                         </Col>
                     </Row>
 
+
                     <Row>
                         <Col>
                             <p>Rescatabilidad</p>
@@ -223,4 +221,4 @@ const FiltroFondos = ({ opcionesFiltro, onFiltroChange }) => {
     );
 };
 
-export default FiltroFondos;
+export default FundsFilter;

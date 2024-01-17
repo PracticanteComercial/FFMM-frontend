@@ -5,7 +5,7 @@ const { Search } = Input;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-const Buscador = ({ onBusquedaChange }) => {
+const Searcher = ({ onBusquedaChange }) => {
     return (
         <div>
             <Space direction="horizontal">
@@ -27,4 +27,4 @@ const Buscador = ({ onBusquedaChange }) => {
     );
 };
 
-export default Buscador;
+export default Searcher;
