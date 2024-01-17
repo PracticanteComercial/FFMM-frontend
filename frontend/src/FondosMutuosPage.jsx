@@ -9,6 +9,7 @@ import { Col, Row } from 'antd';
 import NavBarImage from './assets/NavBar.png';
 import './CSS/FondosMutuosPage.css';
 import { Pagination } from 'antd';
+import Navbar from './NavBar';
 
 
 const FondosMutuosPage = () => {
@@ -90,9 +91,9 @@ const FondosMutuosPage = () => {
     return (
         <>
             <Row className='first-row'>
-                <img src={NavBarImage} alt="Bajo Riesgo" className="imagen-fija" />
+                <Navbar />
             </Row>
-            <Row className="row-filtros" style={{ marginTop: "10%", marginBottom: "5%" }}>
+            <Row className="row-filtros" style={{ marginTop: "2%", marginBottom: "5%" }}>
                 <Col xs={24} xl={6}   style={{ paddingLeft: "4%" }}>
                     <FiltroFondos opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                 </Col>

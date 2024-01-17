@@ -72,10 +72,15 @@ td:nth-child(10) {
 
 th:nth-child(4),
 th:nth-child(7),
-th:nth-child(8),
 th:nth-child(9),
 th:nth-child(10) {
   text-align: center;
   width: 7.33%;
 }
+
+th:nth-child(8) {
+  text-align: center;
+  width: 9%;
+}
+
 

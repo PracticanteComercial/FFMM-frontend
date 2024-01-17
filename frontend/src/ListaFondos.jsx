@@ -22,16 +22,21 @@ const ListaFondos = ({ fondos }) => (
             </Tooltip>
           </th>
           <th>YTD
-          <Tooltip title="Rentabilidad Year-to-Date, también conocido como Año hasta la Fecha o Acumulado del Año">
+            <Tooltip title="Rentabilidad Year-to-Date, también conocido como Año hasta la Fecha o Acumulado del Año">
               <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
             </Tooltip>
           </th>
           <th>12M
-          <Tooltip title="Rentabilidad de 12 mes">
+            <Tooltip title="Rentabilidad de 12 mes">
               <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
             </Tooltip>
           </th>
-          <th>Riesgo</th>
+          <th>
+            Riesgo
+            <Tooltip title={<div>Nivel de riesgo:<br />Bajo: verde,<br />Moderado: amarillo,<br />Alto: rojo.</div>}>
+              <Button shape="circle" size='small' icon={<QuestionCircleOutlined />} />
+            </Tooltip>
+          </th>
           <th>Reglamento</th>
           <th>Ficha</th>
           <th>Invertir</th>
@@ -42,7 +47,7 @@ const ListaFondos = ({ fondos }) => (
           <tr key={fondo.id}>
             <td>{fondo.name}</td>
             <td>{fondo.agf}</td>
-            <td>{fondo.type}</td>
+            <td>{fondo.category}</td>
             <td>{fondo.series}</td>
             <td className={fondo.monthly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.monthly}</td>
             <td className={fondo.ytd.startsWith('-') ? 'rojo' : 'verde'}>{fondo.ytd}</td>

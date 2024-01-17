@@ -2,17 +2,8 @@ body {
   background-color: white;
 }
 
-
-.imagen-fija {
-  position: fixed;
-  top: 0;
-  left: 0;
-  max-width: 100%;
-  z-index: 9999;
-}
-
 .first-row {
-  margin-bottom: 10%;
+  margin-bottom: 3%;
 }
 
 .row-searcher {
@@ -28,3 +19,4 @@ body {
   margin-left: 1%;
   /* Ajusta el margen izquierdo según sea necesario */
 }
+
