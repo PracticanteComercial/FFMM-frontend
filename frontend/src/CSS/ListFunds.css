@@ -66,14 +66,17 @@ td:nth-child(4),
 td:nth-child(7),
 td:nth-child(8),
 td:nth-child(9),
-td:nth-child(10) {
+td:nth-child(10),
+td:nth-child(11)
+ {
   text-align: center;
 }
 
 th:nth-child(4),
 th:nth-child(7),
 th:nth-child(9),
-th:nth-child(10) {
+th:nth-child(10),
+th:nth-child(11) {
   text-align: center;
   width: 7.33%;
 }
