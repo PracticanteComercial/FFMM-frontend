@@ -1,7 +1,23 @@
 .centered-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%; 
-    width: 100%;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.flex-container h4 {
+  margin: 0;
+  margin-right: 8px;
+  /* Ajusta el margen derecho según tus preferencias */
+}
+
+.money-input {
+  width: 60%;
+  margin-left: auto;
+}

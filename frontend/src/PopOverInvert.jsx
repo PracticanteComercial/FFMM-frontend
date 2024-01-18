@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Button, Tooltip, Popover, Input } from 'antd';
+import { MoneyCollectTwoTone } from '@ant-design/icons';
+import { Button, Popover, Input, Typography, message } from 'antd';
 import './CSS/PopOverInvert.css';
+import React, { useState } from 'react';
+
 
 
 const PopOverInvert = () => {
@@ -19,7 +20,11 @@ const PopOverInvert = () => {
         setHovered(false);
         setClicked(open);
     };
-    const clickContent = <div><Input size='large' prefix="$" suffix="CLP" /> </div>;
+    const clickContent = <div className="flex-container">
+        <Typography.Title level={5}>Monto a invertir:</Typography.Title>
+        <Input className='money-input' size='large' prefix="$" suffix="CLP" />
+    </div>;
+
     return (
         <Popover
             style={{
@@ -45,11 +50,11 @@ const PopOverInvert = () => {
                             ghost
                             className="centered-button"
                         >
-                            Avisar a ejecutivo vía correo
+                            Avisar a un ejecutivo Vector vía correo
                         </Button>
                     </div>
                 }
-                title="Monto a invertir:"
+                title="Ingrese el valor"
                 trigger="click"
                 open={clicked}
                 onOpenChange={handleClickChange}
