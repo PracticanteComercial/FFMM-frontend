@@ -71,14 +71,14 @@ const MutualFundsPage = () => {
         // Aplicar filtro de búsqueda
         return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
-    
+
     return (
         <>
             <Row className='first-row'>
                 <Navbar />
             </Row>
             <Row className="row-filtros" style={{ marginTop: "2%", marginBottom: "5%" }}>
-                <Col xs={24} xl={6}   style={{ paddingLeft: "4%" }}>
+                <Col xs={24} xl={6} style={{ paddingLeft: "4%" }}>
                     <FundsFilter opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                 </Col>
                 <Col xs={24} xl={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>

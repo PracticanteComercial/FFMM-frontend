@@ -1,11 +1,12 @@
-import React from 'react';
 import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Button, Tooltip } from 'antd';
+import { Button, Tooltip, Popover } from 'antd';
 import './CSS/ListFunds.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import PopOverInvert from './PopOverInvert';
 
 const ListFunds = ({ fondos }) => (
   <div>
@@ -82,14 +83,15 @@ const ListFunds = ({ fondos }) => (
               </Tooltip>
             </td>
             <td>
-              <Tooltip title="Invertir en este fondo">
+              {/* <Tooltip title="Invertir en este fondo">
                 <Button
                   type="primary" ghost
                   shape="circle"
                   icon={<MoneyCollectTwoTone />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
                 />
-              </Tooltip>
+              </Tooltip> */}
+              <PopOverInvert />
             </td>
           </tr>
         ))}
