@@ -91,7 +91,7 @@ const ListFunds = ({ fondos }) => (
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
                 />
               </Tooltip> */}
-              <PopOverInvert />
+              <PopOverInvert fund={fondo}/>
             </td>
           </tr>
         ))}

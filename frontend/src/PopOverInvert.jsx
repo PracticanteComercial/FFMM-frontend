@@ -4,7 +4,7 @@ import './CSS/PopOverInvert.css';
 import React, { useState } from 'react';
 const { Text, Link } = Typography;
 
-const PopOverInvert = () => {
+const PopOverInvert = (fund) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
 
@@ -13,20 +13,24 @@ const PopOverInvert = () => {
     const hideAndSendEmail = () => {
         setClicked(false);
         setHovered(false);
-    
+
         // Verifica si el input no está vacío
         if (!investmentAmount.trim()) {
             message.error("Debe ingresar el monto a invertir.");
             return;
         }
-    
+
         // Realiza la solicitud HTTP al backend
         fetch("http://localhost:3001/sendEmailToExecutive", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ "investmentAmount": investmentAmount }),
+            body: JSON.stringify({
+                "investmentAmount": investmentAmount,
+                "fundName": fund.fund.name,
+                "fundRUN": fund.fund.run,
+            }),
         })
             .then((response) => {
                 if (response.ok) {
@@ -38,7 +42,7 @@ const PopOverInvert = () => {
             .catch((error) => {
                 console.error("Error en la solicitud HTTP:", error);
             });
-    
+
         setInvestmentAmount("");
     };
 
