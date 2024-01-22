@@ -68,6 +68,7 @@ const ListFunds = ({ fondos }) => (
               <Tooltip title="Descargar Reglamento Interno">
                 <Button
                   shape="circle"
+                  type='primary' ghost
                   icon={<FilePdfOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
                 />
@@ -76,7 +77,8 @@ const ListFunds = ({ fondos }) => (
             <td>
               <Tooltip title="Descargar Ficha">
                 <Button
-                  shape="circle"
+                  shape="circle" 
+                  type='primary' ghost
                   icon={<FileTextOutlined />}
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
                 />

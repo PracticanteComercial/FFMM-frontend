@@ -32,7 +32,7 @@ td {
 }
 
 td:first-child {
-  color: rgb(62, 158, 214);
+  color: #29317d;
   font-weight: bold;
   width: 16%;
 }
@@ -42,7 +42,8 @@ td:nth-child(2) {
 }
 
 td:first-child {
-  color: rgb(62, 158, 214);
+  color: #29317d;
+
 }
 
 td:first-child {
@@ -84,5 +85,3 @@ th:nth-child(8) {
   text-align: center;
   width: 9%;
 }
-
-

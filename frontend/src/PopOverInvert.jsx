@@ -2,6 +2,9 @@ import { MoneyCollectTwoTone } from '@ant-design/icons';
 import { Button, Popover, Input, Typography, message } from 'antd';
 import './CSS/PopOverInvert.css';
 import React, { useState } from 'react';
+import AttachMoneyTwoToneIcon from '@mui/icons-material/AttachMoneyTwoTone';
+import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
+
 const { Text, Link } = Typography;
 
 const PopOverInvert = (fund) => {
@@ -105,9 +108,9 @@ const PopOverInvert = (fund) => {
             >
 
                 <Button
-                    type="primary" ghost
+                    // type="primary" ghost 
                     shape="circle"
-                    icon={<MoneyCollectTwoTone />}
+                    icon={<CurrencyExchangeTwoToneIcon />}
                 />
             </Popover>
         </Popover>
