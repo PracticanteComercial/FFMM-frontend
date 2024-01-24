@@ -65,22 +65,22 @@ const ListFunds = ({ fondos }) => (
               )}
             </td>
             <td>
-              <Tooltip title="Descargar Reglamento Interno">
+              <Tooltip title="Abrir Reglamento Interno">
                 <Button
                   shape="circle"
                   type='primary' ghost
                   icon={<FilePdfOutlined />}
-                  onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
+                  onClick={() => window.open(fondo.bylawLink, '_blank')}
                 />
               </Tooltip>
             </td>
             <td>
-              <Tooltip title="Descargar Ficha">
+              <Tooltip title="Abrir ficha del fondo">
                 <Button
-                  shape="circle" 
+                  shape="circle"
                   type='primary' ghost
                   icon={<FileTextOutlined />}
-                  onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
+                  onClick={() => window.open(fondo.dataSheetLink, '_blank')}
                 />
               </Tooltip>
             </td>
@@ -93,7 +93,7 @@ const ListFunds = ({ fondos }) => (
                   onClick={() => window.open('https://www.vectorcapital.cl/', '_blank')}
                 />
               </Tooltip> */}
-              <PopOverInvert fund={fondo}/>
+              <PopOverInvert fund={fondo} />
             </td>
           </tr>
         ))}
