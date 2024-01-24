@@ -1,5 +1,5 @@
 import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Button, Tooltip, Popover } from 'antd';
+import { Button, Tooltip, Popover, Space, Table } from 'antd';
 import './CSS/ListFunds.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
@@ -7,6 +7,7 @@ import highRiskImage from './assets/high.jpg';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import PopOverInvert from './PopOverInvert';
+
 
 const ListFunds = ({ fondos }) => (
   <div>
@@ -50,9 +51,9 @@ const ListFunds = ({ fondos }) => (
             <td>{fondo.agf}</td>
             <td>{fondo.category}</td>
             <td>{fondo.series}</td>
-            <td className={fondo.monthly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.monthly}</td>
-            <td className={fondo.ytd.startsWith('-') ? 'rojo' : 'verde'}>{fondo.ytd}</td>
-            <td className={fondo.yearly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.yearly}</td>
+            <td className={fondo.monthly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.monthly}%</td>
+            <td className={fondo.ytd.startsWith('-') ? 'rojo' : 'verde'}>{fondo.ytd}%</td>
+            <td className={fondo.yearly.startsWith('-') ? 'rojo' : 'verde'}>{fondo.yearly}%</td>
             <td>
               {fondo.riskLevel === 'Bajo' && (
                 <img src={lowRiskImage} alt="Bajo Riesgo" />

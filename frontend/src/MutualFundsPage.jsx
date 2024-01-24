@@ -6,7 +6,7 @@ import ListFunds from './ListFunds';
 import { Col, Row } from 'antd';
 import './CSS/MutualFundsPage.css';
 import Navbar from './NavBar';
-
+import AntdList from './AntdList';
 
 const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
@@ -88,7 +88,8 @@ const MutualFundsPage = () => {
                         </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
-                        <ListFunds fondos={fondosFiltrados} />
+                        <AntdList fondos={fondosFiltrados} />
+                        {/* <ListFunds fondos={fondosFiltrados} /> */}
                     </Row>
                 </Col>
             </Row>
