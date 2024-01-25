@@ -13,7 +13,31 @@ const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
 const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
-    const [saldoDisponible, setSaldoDisponible] = useState(10000000);
+    const [saldoDisponible, setSaldoDisponible] = useState(0);
+    const [clientNumber, setClientNumber] = useState("7036635/0");
+
+    const fetchBalance = async () => {
+        try {
+            const response = await fetch(`${backend_URL}/getBalance/${clientNumber}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            console.log(data)
+            const encontrarSaldoCLP = (datos) => {
+                return datos.find(objeto => objeto.codMoneda === "CLP");
+            };
+            const saldoCLP = encontrarSaldoCLP(data);
+            if (saldoCLP) {
+                setSaldoDisponible(saldoCLP.monto);
+            } else {
+                console.error('No se encontró el saldo en CLP en la base de datos');
+            }
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+        }
+    };
+
 
     const fetchFfmmData = async () => {
         try {
@@ -30,6 +54,7 @@ const MutualFundsPage = () => {
     };
     useEffect(() => {
         fetchFfmmData();
+        fetchBalance();
     }, []);
 
     const [filtros, setFiltros] = useState({
@@ -79,7 +104,7 @@ const MutualFundsPage = () => {
     return (
         <>
             <Row className='first-row'>
-                <Navbar />
+                <Navbar clientNumber={clientNumber} />
             </Row>
             <Row className="row-filtros" style={{ marginTop: "2%", marginBottom: "5%" }}>
                 <Col xs={24} xl={6} style={{ paddingLeft: "4%" }}>
@@ -92,7 +117,7 @@ const MutualFundsPage = () => {
                         </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
-                        <AntdList fondos={fondosFiltrados} saldoDisponible={saldoDisponible}/>
+                        <AntdList fondos={fondosFiltrados} balance={saldoDisponible} clientNumber={clientNumber} />
                         {/* <ListFunds fondos={fondosFiltrados} /> */}
                     </Row>
                 </Col>

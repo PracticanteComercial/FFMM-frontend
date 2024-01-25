@@ -8,7 +8,7 @@ import highRiskImage from './assets/high.jpg';
 import PopOverInvert from './PopOverInvert';
 
 
-const ListFunds = ({ fondos, saldoDisponible }) => {
+const ListFunds = ({ fondos, balance, clientNumber }) => {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const handleChange = (pagination, filters, sorter) => {
@@ -118,7 +118,7 @@ const ListFunds = ({ fondos, saldoDisponible }) => {
         {
             title: 'Invertir',
             dataIndex: 'invert',
-            render: (_, record) => <PopOverInvert fund={record} balance={saldoDisponible}/>,
+            render: (_, record) => <PopOverInvert fund={record} balance={balance} clientNumber={clientNumber}/>,
             width: "3%",
             align: 'center',
         },

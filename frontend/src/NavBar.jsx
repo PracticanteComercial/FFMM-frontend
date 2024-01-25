@@ -2,13 +2,18 @@ import React from 'react';
 import LogoImage from './assets/Logo_vector.jpg';
 import './CSS/Navbar.css';
 
-function Navbar() {
+function Navbar({ clientNumber } ) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex align-items-center">
                     <img src={LogoImage} alt="logo vector capital" className="logo-image" />
                     <a className="navbar-brand vector-capital" href="https://www.vectorcapital.cl/">vector capital</a>
+                </div>
+                <div className="d-flex">
+                    <div className="navbar-nav">
+                        <p className="nav-link" >Bienvenido {clientNumber}</p>
+                    </div>
                 </div>
                 <div className="d-flex">
                     <div className="navbar-nav">

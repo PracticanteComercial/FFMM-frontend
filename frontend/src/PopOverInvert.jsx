@@ -6,7 +6,7 @@ import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwo
 const { Text, Link } = Typography;
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
-const PopOverInvert = ({ fund, balance }) => {
+const PopOverInvert = ({ fund, balance, clientNumber }) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
     const [investmentAmount, setInvestmentAmount] = useState("");
@@ -15,9 +15,15 @@ const PopOverInvert = ({ fund, balance }) => {
         setClicked(false);
         setHovered(false);
 
-        // Verifica si el input no está vacío
+        // Verifica si el input no está vacío, es positivo y es un número
         if (!investmentAmount.trim()) {
             message.error("Debe ingresar el monto a invertir.");
+            return;
+        } else if (investmentAmount <= 0) {
+            message.error("Debe ingresar un monto positivo.");
+            return;
+        } else if (isNaN(investmentAmount)) {
+            message.error("Ingrese un valor numérico válido para el monto.");
             return;
         }
 
@@ -36,6 +42,7 @@ const PopOverInvert = ({ fund, balance }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                "clientNumber": clientNumber,
                 "investmentAmount": investmentAmount,
                 "fundName": fund.name,
                 "fundRUN": fund.run,
@@ -101,7 +108,6 @@ const PopOverInvert = ({ fund, balance }) => {
             </div>
         </div>
     );
-
 
     return (
         <Popover
