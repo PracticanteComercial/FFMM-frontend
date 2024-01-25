@@ -5,14 +5,10 @@ import './CSS/ListFunds.css';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import PopOverInvert from './PopOverInvert';
-import { ConfigProvider, Switch } from 'antd';
 
-const text = <span>prompt text</span>;
-const buttonWidth = 80;
 
-const ListFunds = ({ fondos }) => {
+const ListFunds = ({ fondos, saldoDisponible }) => {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const handleChange = (pagination, filters, sorter) => {
@@ -122,7 +118,7 @@ const ListFunds = ({ fondos }) => {
         {
             title: 'Invertir',
             dataIndex: 'invert',
-            render: (_, record) => <PopOverInvert fund={record} />,
+            render: (_, record) => <PopOverInvert fund={record} balance={saldoDisponible}/>,
             width: "3%",
             align: 'center',
         },

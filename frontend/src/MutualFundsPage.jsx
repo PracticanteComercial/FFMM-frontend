@@ -8,12 +8,16 @@ import './CSS/MutualFundsPage.css';
 import Navbar from './NavBar';
 import AntdList from './AntdList';
 
+const backend_URL = import.meta.env.VITE_BACKEND_URL;
+
+
 const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
+    const [saldoDisponible, setSaldoDisponible] = useState(10000000);
 
     const fetchFfmmData = async () => {
         try {
-            const response = await fetch('http://localhost:3001/FFMMs');
+            const response = await fetch(`${backend_URL}/FFMMs`);
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -88,7 +92,7 @@ const MutualFundsPage = () => {
                         </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
-                        <AntdList fondos={fondosFiltrados} />
+                        <AntdList fondos={fondosFiltrados} saldoDisponible={saldoDisponible}/>
                         {/* <ListFunds fondos={fondosFiltrados} /> */}
                     </Row>
                 </Col>

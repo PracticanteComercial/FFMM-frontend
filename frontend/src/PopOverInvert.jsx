@@ -1,16 +1,14 @@
-import { MoneyCollectTwoTone } from '@ant-design/icons';
 import { Button, Popover, Input, Typography, message } from 'antd';
 import './CSS/PopOverInvert.css';
 import React, { useState } from 'react';
-import AttachMoneyTwoToneIcon from '@mui/icons-material/AttachMoneyTwoTone';
 import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
 
 const { Text, Link } = Typography;
+const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
-const PopOverInvert = (fund) => {
+const PopOverInvert = ({ fund, balance }) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
-
     const [investmentAmount, setInvestmentAmount] = useState("");
 
     const hideAndSendEmail = () => {
@@ -23,16 +21,24 @@ const PopOverInvert = (fund) => {
             return;
         }
 
+        const remainingBalance = balance - investmentAmount;
+
+        // Verifica si el monto de inversión es mayor que el saldo disponible
+        if (remainingBalance < 0) {
+            message.error("No puede invertir más dinero del que tiene disponible.");
+            return;
+        }
+
         // Realiza la solicitud HTTP al backend
-        fetch("http://localhost:3001/sendEmailToExecutive", {
+        fetch(`${backend_URL}/sendEmailToExecutive`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "investmentAmount": investmentAmount,
-                "fundName": fund.fund.name,
-                "fundRUN": fund.fund.run,
+                "fundName": fund.name,
+                "fundRUN": fund.run,
             }),
         })
             .then((response) => {
@@ -57,18 +63,45 @@ const PopOverInvert = (fund) => {
         setHovered(false);
         setClicked(open);
     };
-    const clickContent = <div className="flex-container">
-        <Typography.Title level={5}>Monto a invertir:</Typography.Title>
 
-        <Input
-            className='money-input'
-            size='large'
-            prefix="$"
-            suffix="CLP"
-            value={investmentAmount}
-            onChange={(e) => setInvestmentAmount(e.target.value)}
-        />
-    </div>;
+    const clickContent = (
+        <div className="flex-container" style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ marginRight: '16px' }}>
+                <Typography.Title level={5}>Saldo disponible:</Typography.Title>
+                <Input
+                    className='money-input'
+                    size='large'
+                    prefix="$"
+                    suffix="CLP"
+                    disabled={true}
+                    value={balance}
+                />
+            </div>
+            <div style={{ marginRight: '16px' }}>
+                <Typography.Title level={5}>Monto a invertir:</Typography.Title>
+                <Input
+                    className='money-input'
+                    size='large'
+                    prefix="$"
+                    suffix="CLP"
+                    value={investmentAmount}
+                    onChange={(e) => setInvestmentAmount(e.target.value)}
+                />
+            </div>
+            <div>
+                <Typography.Title level={5}>Saldo restante:</Typography.Title>
+                <Input
+                    className='money-input'
+                    size='large'
+                    prefix="$"
+                    suffix="CLP"
+                    disabled={true}
+                    value={balance - investmentAmount}
+                />
+            </div>
+        </div>
+    );
+
 
     return (
         <Popover
@@ -86,7 +119,7 @@ const PopOverInvert = (fund) => {
                 content={
                     <div>
                         {clickContent}
-                        <Text italic>*Al hacer click en el botón, hacemos llegar un correo a   <br /> uno de nuestros ejecutivos para hacer efectivo su inversión.</Text>
+                        <Text italic>*Al hacer click en el botón, hacemos llegar un correo a uno de nuestros ejecutivos para hacer efectivo su inversión.</Text>
                         <br />
 
                         <Button
