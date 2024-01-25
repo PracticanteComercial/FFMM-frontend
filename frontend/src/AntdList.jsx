@@ -7,8 +7,8 @@ import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import PopOverInvert from './PopOverInvert';
+import { ConfigProvider, Switch } from 'antd';
 
-import { ConfigProvider } from 'antd';
 const text = <span>prompt text</span>;
 const buttonWidth = 80;
 
@@ -24,18 +24,27 @@ const ListFunds = ({ fondos }) => {
         {
             title: 'Fondo',
             dataIndex: 'name',
+            sorter: (a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase(), undefined, { sensitivity: 'base' }),
+            key: 'name',
+            sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+            width: "15%",
         },
         {
             title: 'AGF',
             dataIndex: 'agf',
+            width: "12%",
         },
         {
             title: 'Categoría',
             dataIndex: 'category',
+            width: "15%",
         },
         {
             title: 'Serie',
             dataIndex: 'series',
+            fixed: 'center',
+            width: "6%",
+            align: 'center',
         },
         {
             title: 'Rentabilidad 1M',
@@ -44,6 +53,7 @@ const ListFunds = ({ fondos }) => {
             key: 'monthly',
             sortOrder: sortedInfo.columnKey === 'monthly' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
+            width: "11%",
         },
         {
             title: 'Rentabilidad YTD',
@@ -52,7 +62,7 @@ const ListFunds = ({ fondos }) => {
             sorter: (a, b) => a.ytd - b.ytd,
             sortOrder: sortedInfo.columnKey === 'ytd' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
-
+            width: "11%",
         },
         {
             title: 'Rentabilidad 12M',
@@ -61,6 +71,7 @@ const ListFunds = ({ fondos }) => {
             key: 'yearly',
             sortOrder: sortedInfo.columnKey === 'yearly' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
+            width: "11%",
         },
         {
             title: 'Nivel de Riesgo',
@@ -73,9 +84,11 @@ const ListFunds = ({ fondos }) => {
                 }[text];
                 return <img src={riskLevelImage} alt={`${text} Riesgo`} />;
             },
+            width: "3%",
+            align: 'center',
         },
         {
-            title: 'Reglamento',
+            title: 'Regla-mento',
             dataIndex: 'bylawLink',
             render: (text) => (
                 <Tooltip title="Abrir Reglamento Interno">
@@ -87,6 +100,8 @@ const ListFunds = ({ fondos }) => {
                     />
                 </Tooltip>
             ),
+            width: "5%",
+            align: 'center',
         },
         {
             title: 'Ficha',
@@ -101,14 +116,20 @@ const ListFunds = ({ fondos }) => {
                     />
                 </Tooltip>
             ),
+            width: "3%",
+            align: 'center',
         },
         {
             title: 'Invertir',
             dataIndex: 'invert',
             render: (_, record) => <PopOverInvert fund={record} />,
+            width: "3%",
+            align: 'center',
         },
     ];
 
+
+    const [fixedTop, setFixedTop] = useState(false);
     return (
         <div>
             <Table
@@ -117,7 +138,20 @@ const ListFunds = ({ fondos }) => {
                 onChange={handleChange}
                 rowKey="id"
                 size='small'
-                pagination={false}
+                tableLayout='fixed'
+                sortDirections={["descend", "ascend", "descend"]}
+                locale={{
+                    triggerDesc: 'Ordenar ascendente',
+                    triggerAsc: 'Ordenar descendente',
+                    cancelSort: 'Cancelar ordenamiento',
+                }}
+            // pagination={false}
+            // sticky={{
+            //     offsetHeader: 50,
+            // }}
+            // scroll={{
+            //     y: "calc(100vh - 350px)",
+            //   }}
             />
         </div>
     );
