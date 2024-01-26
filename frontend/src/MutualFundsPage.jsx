@@ -15,6 +15,7 @@ const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
     const [saldoDisponible, setSaldoDisponible] = useState(0);
     const [clientNumber, setClientNumber] = useState("7036635/0");
+    const [clientName, setClientName] = useState("");
 
     const fetchBalance = async () => {
         try {
@@ -23,21 +24,26 @@ const MutualFundsPage = () => {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
-            console.log(data)
-            const encontrarSaldoCLP = (datos) => {
-                return datos.find(objeto => objeto.codMoneda === "CLP");
-            };
-            const saldoCLP = encontrarSaldoCLP(data);
-            if (saldoCLP) {
-                setSaldoDisponible(saldoCLP.monto);
-            } else {
-                console.error('No se encontró el saldo en CLP en la base de datos');
-            }
+            console.log(data.montoCLP)
+            setSaldoDisponible(data.montoCLP);
         } catch (error) {
             console.error('Error fetching balance:', error);
         }
     };
 
+    const fetchClientName = async () => {
+        try {
+            const response = await fetch(`${backend_URL}/getClientName/${clientNumber}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.text();
+            console.log(data)
+            setClientName(data);
+        } catch (error) {
+            console.error('Error fetching client name:', error);
+        }
+    };
 
     const fetchFfmmData = async () => {
         try {
@@ -55,6 +61,7 @@ const MutualFundsPage = () => {
     useEffect(() => {
         fetchFfmmData();
         fetchBalance();
+        fetchClientName();
     }, []);
 
     const [filtros, setFiltros] = useState({
@@ -104,7 +111,7 @@ const MutualFundsPage = () => {
     return (
         <>
             <Row className='first-row'>
-                <Navbar clientNumber={clientNumber} />
+                <Navbar clientName={clientName} clientNumber={clientNumber} />
             </Row>
             <Row className="row-filtros" style={{ marginTop: "2%", marginBottom: "5%" }}>
                 <Col xs={24} xl={6} style={{ paddingLeft: "4%" }}>
@@ -117,7 +124,7 @@ const MutualFundsPage = () => {
                         </Col>
                     </Row>
                     <Row className='row-lista-fondos'>
-                        <AntdList fondos={fondosFiltrados} balance={saldoDisponible} clientNumber={clientNumber} />
+                        <AntdList fondos={fondosFiltrados} balance={saldoDisponible} clientNumber={clientNumber} clientName={clientName} />
                         {/* <ListFunds fondos={fondosFiltrados} /> */}
                     </Row>
                 </Col>

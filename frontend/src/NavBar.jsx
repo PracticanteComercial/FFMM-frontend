@@ -2,7 +2,7 @@ import React from 'react';
 import LogoImage from './assets/Logo_vector.jpg';
 import './CSS/Navbar.css';
 
-function Navbar({ clientNumber } ) {
+function Navbar({ clientName, clientNumber } ) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="d-flex justify-content-between align-items-center w-100">
@@ -12,7 +12,7 @@ function Navbar({ clientNumber } ) {
                 </div>
                 <div className="d-flex">
                     <div className="navbar-nav">
-                        <p className="nav-link" >Bienvenido {clientNumber}</p>
+                        <p className="nav-link" >Bienvenido {clientName} {clientNumber}</p>
                     </div>
                 </div>
                 <div className="d-flex">

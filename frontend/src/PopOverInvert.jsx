@@ -6,10 +6,10 @@ import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwo
 const { Text, Link } = Typography;
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
-const PopOverInvert = ({ fund, balance, clientNumber }) => {
+const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
-    const [investmentAmount, setInvestmentAmount] = useState("");
+    const [investmentAmount, setInvestmentAmount] = useState(0);
 
     const hideAndSendEmail = () => {
         setClicked(false);
@@ -27,7 +27,7 @@ const PopOverInvert = ({ fund, balance, clientNumber }) => {
             return;
         }
 
-        const remainingBalance = balance - investmentAmount;
+        const remainingBalance = parseFloat(balance) - investmentAmount;
 
         // Verifica si el monto de inversión es mayor que el saldo disponible
         if (remainingBalance < 0) {
@@ -42,6 +42,7 @@ const PopOverInvert = ({ fund, balance, clientNumber }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                "clientName": clientName,
                 "clientNumber": clientNumber,
                 "investmentAmount": investmentAmount,
                 "fundName": fund.name,
@@ -125,7 +126,7 @@ const PopOverInvert = ({ fund, balance, clientNumber }) => {
                 content={
                     <div>
                         {clickContent}
-                        <Text italic>*Al hacer click en el botón, hacemos llegar un correo a uno de nuestros ejecutivos para hacer efectivo su inversión.</Text>
+                        <Text italic>*Las inversiones antes de las 14:00 de días hábiles se reflejará en el mismo día. En caso contrario se reflejará antes del próximo día hábil.</Text>
                         <br />
 
                         <Button
@@ -136,7 +137,7 @@ const PopOverInvert = ({ fund, balance, clientNumber }) => {
                             ghost
                             className="centered-button"
                         >
-                            Avisar a un ejecutivo Vector vía correo
+                            Aportar
                         </Button>
                     </div>
                 }

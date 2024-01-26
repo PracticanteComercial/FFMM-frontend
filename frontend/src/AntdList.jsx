@@ -8,7 +8,7 @@ import highRiskImage from './assets/high.jpg';
 import PopOverInvert from './PopOverInvert';
 
 
-const ListFunds = ({ fondos, balance, clientNumber }) => {
+const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const handleChange = (pagination, filters, sorter) => {
@@ -118,7 +118,7 @@ const ListFunds = ({ fondos, balance, clientNumber }) => {
         {
             title: 'Invertir',
             dataIndex: 'invert',
-            render: (_, record) => <PopOverInvert fund={record} balance={balance} clientNumber={clientNumber}/>,
+            render: (_, record) => <PopOverInvert fund={record} balance={balance} clientNumber={clientNumber} clientName={clientName}/>,
             width: "3%",
             align: 'center',
         },
@@ -137,8 +137,8 @@ const ListFunds = ({ fondos, balance, clientNumber }) => {
                 tableLayout='fixed'
                 sortDirections={["descend", "ascend", "descend"]}
                 locale={{
-                    triggerDesc: 'Ordenar ascendente',
-                    triggerAsc: 'Ordenar descendente',
+                    triggerDesc: 'Ordenar ascendentemente',
+                    triggerAsc: 'Ordenar descendentemente',
                     cancelSort: 'Cancelar ordenamiento',
                 }}
             // pagination={false}
