@@ -3,10 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FundsFilter from './FundsFilter';
 import Searcher from './Searcher';
 import ListFunds from './ListFunds';
-import { Col, Row } from 'antd';
+import { Col, Row, Button, Flex, Modal } from 'antd';
 import './CSS/MutualFundsPage.css';
 import Navbar from './NavBar';
 import AntdList from './AntdList';
+import ListMyFunds from './ListMyFunds';
+import { LogoutOutlined, FileSearchOutlined } from '@ant-design/icons';
+
 
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -14,8 +17,9 @@ const backend_URL = import.meta.env.VITE_BACKEND_URL;
 const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
     const [saldoDisponible, setSaldoDisponible] = useState(0);
-    const [clientNumber, setClientNumber] = useState("7036635/0");
+    const [clientNumber, setClientNumber] = useState("15366350/0");
     const [clientName, setClientName] = useState("");
+    const [myFunds, setMyFunds] = useState([]);
 
     const fetchBalance = async () => {
         try {
@@ -24,7 +28,7 @@ const MutualFundsPage = () => {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
-            console.log(data.montoCLP)
+            // console.log(data.montoCLP)
             setSaldoDisponible(data.montoCLP);
         } catch (error) {
             console.error('Error fetching balance:', error);
@@ -38,7 +42,7 @@ const MutualFundsPage = () => {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.text();
-            console.log(data)
+            // console.log(data)
             setClientName(data);
         } catch (error) {
             console.error('Error fetching client name:', error);
@@ -52,16 +56,32 @@ const MutualFundsPage = () => {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
-            console.log(data.FFMMs);
+            // console.log(data.FFMMs);
             setFfmm(data.FFMMs);
         } catch (error) {
             console.error('Error fetching FFMM data:', error);
         }
     };
+
+    const fetchMyFunds = async () => {
+        try {
+            const response = await fetch(`${backend_URL}/getClientFunds/${clientNumber}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setMyFunds(data);
+            console.log("imprimir fondos de cliente: ", data);
+        } catch (error) {
+            console.error('Error fetching client funds:', error);
+        }
+    };
+
     useEffect(() => {
         fetchFfmmData();
         fetchBalance();
         fetchClientName();
+        fetchMyFunds();
     }, []);
 
     const [filtros, setFiltros] = useState({
@@ -108,6 +128,28 @@ const MutualFundsPage = () => {
         return fondo.name.toLowerCase().includes(busqueda.toLowerCase());
     });
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+   
+    const showModal = () => {
+        setIsModalOpen(true);
+      };
+      const handleOk = () => {
+        setIsModalOpen(false);
+      };
+      const handleCancel = () => {
+        setIsModalOpen(false);
+      };
+
+    const handleDownload = () => {
+        // const link = document.createElement('a');
+        // link.href = './assets/Manual de rescate FFMM.pdf';
+        // link.download = 'Manual de rescate FFMM.pdf';
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        window.open('https://www.ccbolsa.cl/apps/static/informaciones/ManualFFMM.pdf', '_blank');
+    };
+
     return (
         <>
             <Row className='first-row'>
@@ -116,6 +158,34 @@ const MutualFundsPage = () => {
             <Row className="row-filtros" style={{ marginTop: "2%", marginBottom: "5%" }}>
                 <Col xs={24} xl={6} style={{ paddingLeft: "4%" }}>
                     <FundsFilter opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
+                    <Button type="primary" block ghost size='large' onClick={showModal}>
+                        Hacer rescate de fondos
+                    </Button>
+
+                    <Modal
+                        footer={[
+                            <Button key="back" type="primary" onClick={handleOk}>
+                                Salir
+                            </Button>,
+
+                        ]}
+                        open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+                        width={1200} >
+                        <h2 className='rescue-funds'>Rescatar fondos</h2>
+                        <Button
+                            type="primary"
+                            block
+                            ghost
+                            size='large'
+                            onClick={handleDownload}
+                            icon={<FileSearchOutlined />}
+                            className='rescue-funds'>
+                            Descargar Manual de rescate
+                        </Button>
+                        <ListMyFunds fondos={myFunds} />
+                    </Modal>
+
+
                 </Col>
                 <Col xs={24} xl={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>

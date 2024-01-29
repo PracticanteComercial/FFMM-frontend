@@ -36,7 +36,7 @@ const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
         }
 
         // Realiza la solicitud HTTP al backend
-        fetch(`${backend_URL}/sendEmailToExecutive`, {
+        fetch(`${backend_URL}/sendInvertFundEmailToExecutive`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
