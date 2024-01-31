@@ -1,8 +1,10 @@
-import { Input, Typography, Popconfirm, Button, message } from 'antd';
+import { Input, Typography, Popconfirm, Button, message, Tooltip } from 'antd';
 import './CSS/ListFunds.css';
 import React, { useState } from 'react';
-import { LogoutOutlined, FileSearchOutlined } from '@ant-design/icons';
+import { LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+
 
 const ListMyFunds = ({ fondos }) => {
     // Crear un array de estados para los porcentajes a rescatar de cada fondo
@@ -50,7 +52,7 @@ const ListMyFunds = ({ fondos }) => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/sendRescueFundEmailToExecutive', data);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/sendRescueFundEmailToExecutive`, data);
 
             message.success('La solicitud de rescate fue enviada correctamente.');
         } catch (error) {
@@ -65,10 +67,14 @@ const ListMyFunds = ({ fondos }) => {
                 <thead>
                     <tr>
                         <th>Fondo a rescatar</th>
-                        <th>Máximo de cuotas a rescatar</th>
-                        <th>Tasa precio</th>
-                        <th>% a rescatar</th>
-                        <th>Monto aproximado a rescatar</th>
+                        <th>Mis cuotas</th>
+                        <th>Valor cuota
+                            <Tooltip title="Valor referencial de una cuota">
+                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
+                            </Tooltip>
+                        </th>
+                        <th>% de cuotas a rescatar</th>
+                        <th>Monto referencial de rescate</th>
                         <th>Confirmar</th>
                     </tr>
                 </thead>
@@ -99,7 +105,7 @@ const ListMyFunds = ({ fondos }) => {
                             <th>
                                 <Popconfirm
                                     title="¿Estás seguro de rescatar este fondo?
-                                    El cambio de cantidad de cuota se reflejará dentro de 1 día hábil y el monto rescatado se depositará en tu cuenta hasta 3 días hábiles."
+                                    El cambio de cantidad de cuota se reflejará dentro de 1 día hábil y el proceso de rescate puede demorar hasta 10 días corridos, luego el monto rescatado se depositará a tu cuenta en a lo más 1 día hábil."
                                     onConfirm={() => handleRescue(fondo, investmentAmounts[index])} // Pasar el porcentaje como segundo argumento
                                     okText="Sí"
                                     cancelText="No"

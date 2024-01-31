@@ -1,6 +1,6 @@
 import React from 'react';
-import LogoImage from './assets/Logo_vector.jpg';
-import './CSS/Navbar.css';
+import LogoImage from './assets/Logo_Vector.jpg';
+import './CSS/NavBar.css';
 
 function Navbar({ clientName, clientNumber } ) {
     return (

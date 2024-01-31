@@ -9,6 +9,7 @@ import Navbar from './NavBar';
 import AntdList from './AntdList';
 import ListMyFunds from './ListMyFunds';
 import { LogoutOutlined, FileSearchOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
@@ -21,13 +22,73 @@ const MutualFundsPage = () => {
     const [clientName, setClientName] = useState("");
     const [myFunds, setMyFunds] = useState([]);
 
+    // const fetchBalance = async () => {
+    //     try {
+    //         const response = await fetch(`${backend_URL}/getBalance/${clientNumber}`);
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.statusText}`);
+    //         }
+    //         const data = await response.json();
+    //         // console.log(data.montoCLP)
+    //         setSaldoDisponible(data.montoCLP);
+    //     } catch (error) {
+    //         console.error('Error fetching balance:', error);
+    //     }
+    // };
+
+    // const fetchClientName = async () => {
+    //     try {
+    //         const response = await fetch(`${backend_URL}/getClientName/${clientNumber}`);
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.statusText}`);
+    //         }
+    //         const data = await response.text();
+    //         // console.log(data)
+    //         setClientName(data);
+    //     } catch (error) {
+    //         console.error('Error fetching client name:', error);
+    //     }
+    // };
+
+    // const fetchFfmmData = async () => {
+    //     try {
+    //         const response = await fetch(`${backend_URL}/FFMMs`);
+    //         console.log(response);
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.statusText}`);
+    //         }
+    //         const data = await response.json();
+    //         console.log(data.FFMMs);
+
+    //         // console.log(data.FFMMs);
+    //         setFfmm(data.FFMMs);
+    //     } catch (error) {
+    //         console.error('Error fetching FFMM data:', error);
+    //     }
+    // };
+
+    // const fetchMyFunds = async () => {
+    //     try {
+
+    //         const response = await fetch(`${backend_URL}/getClientFunds/${clientNumber}`);
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.statusText}`);
+    //         }
+    //         const data = await response.json();
+    //         setMyFunds(data);
+    //     } catch (error) {
+    //         console.error('Error fetching client funds:', error);
+    //     }
+    // };
+
+
     const fetchBalance = async () => {
         try {
-            const response = await fetch(`${backend_URL}/getBalance/${clientNumber}`);
-            if (!response.ok) {
+            const response = await axios.get(`${backend_URL}/getBalance/${clientNumber}?ngrok-skip-browser-warning`);
+            if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            const data = await response.json();
+            const data = response.data;
             // console.log(data.montoCLP)
             setSaldoDisponible(data.montoCLP);
         } catch (error) {
@@ -37,11 +98,11 @@ const MutualFundsPage = () => {
 
     const fetchClientName = async () => {
         try {
-            const response = await fetch(`${backend_URL}/getClientName/${clientNumber}`);
-            if (!response.ok) {
+            const response = await axios.get(`${backend_URL}/getClientName/${clientNumber}?ngrok-skip-browser-warning`);
+            if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            const data = await response.text();
+            const data = response.data;
             // console.log(data)
             setClientName(data);
         } catch (error) {
@@ -51,12 +112,12 @@ const MutualFundsPage = () => {
 
     const fetchFfmmData = async () => {
         try {
-            const response = await fetch(`${backend_URL}/FFMMs`);
-            if (!response.ok) {
+            const response = await axios.get(`${backend_URL}/FFMMs?ngrok-skip-browser-warning`);
+            if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            const data = await response.json();
-            // console.log(data.FFMMs);
+            const data = response.data;
+            console.log(data.FFMMs);
             setFfmm(data.FFMMs);
         } catch (error) {
             console.error('Error fetching FFMM data:', error);
@@ -65,13 +126,12 @@ const MutualFundsPage = () => {
 
     const fetchMyFunds = async () => {
         try {
-            const response = await fetch(`${backend_URL}/getClientFunds/${clientNumber}`);
-            if (!response.ok) {
+            const response = await axios.get(`${backend_URL}/getClientFunds/${clientNumber}?ngrok-skip-browser-warning=true`);
+            if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            const data = await response.json();
+            const data = response.data;
             setMyFunds(data);
-            console.log("imprimir fondos de cliente: ", data);
         } catch (error) {
             console.error('Error fetching client funds:', error);
         }
@@ -129,16 +189,16 @@ const MutualFundsPage = () => {
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-   
+
     const showModal = () => {
         setIsModalOpen(true);
-      };
-      const handleOk = () => {
+    };
+    const handleOk = () => {
         setIsModalOpen(false);
-      };
-      const handleCancel = () => {
+    };
+    const handleCancel = () => {
         setIsModalOpen(false);
-      };
+    };
 
     const handleDownload = () => {
         // const link = document.createElement('a');
@@ -159,7 +219,7 @@ const MutualFundsPage = () => {
                 <Col xs={24} xl={6} style={{ paddingLeft: "4%" }}>
                     <FundsFilter opcionesFiltro={opcionesFiltro} onFiltroChange={handleFiltroChange} />
                     <Button type="primary" block ghost size='large' onClick={showModal}>
-                        Hacer rescate de fondos
+                        Rescate de fondos mutuos
                     </Button>
 
                     <Modal
@@ -167,25 +227,13 @@ const MutualFundsPage = () => {
                             <Button key="back" type="primary" onClick={handleOk}>
                                 Salir
                             </Button>,
-
                         ]}
                         open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
                         width={1200} >
-                        <h2 className='rescue-funds'>Rescatar fondos</h2>
-                        <Button
-                            type="primary"
-                            block
-                            ghost
-                            size='large'
-                            onClick={handleDownload}
-                            icon={<FileSearchOutlined />}
-                            className='rescue-funds'>
-                            Descargar Manual de rescate
-                        </Button>
+                        <h2 className='rescue-funds'>Mis Fondos Mutuos</h2>
+                        <h5 className='alert-message'>*El monto a rescatar es referencial. El valor cuota del rescate será del día de ejecución del rescate en Vector Capital.</h5>
                         <ListMyFunds fondos={myFunds} />
                     </Modal>
-
-
                 </Col>
                 <Col xs={24} xl={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>
                     <Row className='row-searcher'>

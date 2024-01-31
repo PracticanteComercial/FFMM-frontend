@@ -67,7 +67,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
                     <Row>
                         <Col>
-                            <p>Moneda</p>
+                            <p>Moneda del fondo</p>
                         </Col>
                         <Col>
                             <Tooltip title="Moneda específica utilizada en transacciones.">
@@ -107,7 +107,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                             <p>Nivel de riesgo</p>
                         </Col>
                         <Col>
-                            <Tooltip title="Medida de la probabilidad de pérdida o variabilidad en el rendimiento de una inversión.">
+                            <Tooltip title="Riesgo del fondo en base a los instrumentos que invierte. Rojo: mayor riesgo. Amarillo: riesgo moderado. Verde: menor riesgo.">
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </Col>
@@ -141,7 +141,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
                     <Row>
                         <Col>
-                            <p>Rescatabilidad</p>
+                            <p>Tiempo de pago de rescate</p>
                         </Col>
                         <Col>
                             <Tooltip title="Capacidad de recuperar o redimir una inversión antes de su vencimiento o término. ">
