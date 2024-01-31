@@ -8,12 +8,9 @@ import './CSS/MutualFundsPage.css';
 import Navbar from './NavBar';
 import AntdList from './AntdList';
 import ListMyFunds from './ListMyFunds';
-import { LogoutOutlined, FileSearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
-
 
 const MutualFundsPage = () => {
     const [ffmms, setFfmm] = useState([]);
@@ -84,7 +81,7 @@ const MutualFundsPage = () => {
 
     const fetchBalance = async () => {
         try {
-            const response = await axios.get(`${backend_URL}/getBalance/${clientNumber}?ngrok-skip-browser-warning`);
+            const response = await axios.get(`${backend_URL}/getBalance/${clientNumber}`);
             if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -98,7 +95,7 @@ const MutualFundsPage = () => {
 
     const fetchClientName = async () => {
         try {
-            const response = await axios.get(`${backend_URL}/getClientName/${clientNumber}?ngrok-skip-browser-warning`);
+            const response = await axios.get(`${backend_URL}/getClientName/${clientNumber}`);
             if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -112,7 +109,7 @@ const MutualFundsPage = () => {
 
     const fetchFfmmData = async () => {
         try {
-            const response = await axios.get(`${backend_URL}/FFMMs?ngrok-skip-browser-warning`);
+            const response = await axios.get(`${backend_URL}/FFMMs`);
             if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -126,7 +123,7 @@ const MutualFundsPage = () => {
 
     const fetchMyFunds = async () => {
         try {
-            const response = await axios.get(`${backend_URL}/getClientFunds/${clientNumber}?ngrok-skip-browser-warning=true`);
+            const response = await axios.get(`${backend_URL}/getClientFunds/${clientNumber}`);
             if (response.status !== 200) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -231,8 +228,8 @@ const MutualFundsPage = () => {
                         open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
                         width={1200} >
                         <h2 className='rescue-funds'>Mis Fondos Mutuos</h2>
-                        <h6 className='alert-message'>*El monto a rescatar es referencial. El valor cuota del rescate será del día de ejecución del rescate en Vector Capital.</h6>
                         <ListMyFunds fondos={myFunds} />
+                        <h6 className='alert-message'>*El monto a rescatar es referencial. El valor cuota del rescate será del día de ejecución del rescate en Vector Capital.</h6>
                     </Modal>
                 </Col>
                 <Col xs={24} xl={18} style={{ paddingLeft: "2%", paddingRight: "4%" }}>

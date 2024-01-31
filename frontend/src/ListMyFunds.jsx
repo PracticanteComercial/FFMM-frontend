@@ -10,7 +10,6 @@ const ListMyFunds = ({ fondos }) => {
     // Crear un array de estados para los porcentajes a rescatar de cada fondo
     const [investmentAmounts, setInvestmentAmounts] = useState(fondos.map(() => 0));
 
-
     const handleInvestmentAmountChange = (index, value) => {
         // Si el valor ingresado es una cadena vacía, establecer el valor del porcentaje a 0
         if (value === '') {
@@ -73,6 +72,7 @@ const ListMyFunds = ({ fondos }) => {
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </th>
+                        <th>Monto</th>
                         <th>% de cuotas a rescatar</th>
                         <th>Monto referencial de rescate</th>
                         <th>Confirmar</th>
@@ -82,10 +82,10 @@ const ListMyFunds = ({ fondos }) => {
                     {fondos.map((fondo, index) => (
                         <tr key={fondo.idInstrumento}>
                             <td>{fondo.dscInstrumento}</td>
-                            <td>{fondo.cantidad}</td>
-                            <td>{fondo.tasaPrecio}</td>
+                            <td>{fondo.cantidad.toLocaleString('es-CL')}</td>
+                            <td>{new Intl.NumberFormat('es-CL', { minimumFractionDigits: 4 }).format(parseFloat(fondo.tasaPrecio))} {fondo.monedaNemotecnico}</td>
+                            <td>{Math.floor(fondo.tasaPrecio * fondo.cantidad).toLocaleString('es-CL')}</td>
                             <td>
-                                <Typography.Title level={5}>Porcentaje a rescatar:</Typography.Title>
                                 <Input
                                     className='money-input'
                                     size='large'
@@ -98,7 +98,7 @@ const ListMyFunds = ({ fondos }) => {
                                 <strong>
                                     {isNaN(fondo.tasaPrecio * fondo.cantidad * investmentAmounts[index] / 100) || investmentAmounts[index] === 0 ?
                                         0 :
-                                        (fondo.tasaPrecio * fondo.cantidad * investmentAmounts[index] / 100).toFixed(2)}
+                                        Math.trunc(fondo.tasaPrecio * fondo.cantidad * investmentAmounts[index] / 100).toLocaleString('es-CL')}
                                 </strong>
                             </td>
 
@@ -106,7 +106,7 @@ const ListMyFunds = ({ fondos }) => {
                                 <Popconfirm
                                     title="¿Estás seguro de rescatar este fondo?
                                     El cambio de cantidad de cuota se reflejará dentro de 1 día hábil y el proceso de rescate puede demorar hasta 10 días corridos, luego el monto rescatado se depositará a tu cuenta en a lo más 1 día hábil."
-                                    onConfirm={() => handleRescue(fondo, investmentAmounts[index])} // Pasar el porcentaje como segundo argumento
+                                    onConfirm={() => handleRescue(fondo, investmentAmounts[index])}
                                     okText="Sí"
                                     cancelText="No"
                                 >

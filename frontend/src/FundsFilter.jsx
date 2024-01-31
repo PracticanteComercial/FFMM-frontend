@@ -63,14 +63,12 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                             </Space>
                         </Col>
                     </Row>
-
-
                     <Row>
                         <Col>
                             <p>Moneda del fondo</p>
                         </Col>
                         <Col>
-                            <Tooltip title="Moneda específica utilizada en transacciones.">
+                            <Tooltip title="En qué moneda está expresada las cuotas del fondo.">
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </Col>
@@ -100,8 +98,6 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                             </Space>
                         </Col>
                     </Row>
-
-
                     <Row>
                         <Col>
                             <p>Nivel de riesgo</p>
@@ -141,10 +137,10 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
                     <Row>
                         <Col>
-                            <p>Tiempo de pago de rescate</p>
+                            <p>Período de rescate</p>
                         </Col>
                         <Col>
-                            <Tooltip title="Capacidad de recuperar o redimir una inversión antes de su vencimiento o término. ">
+                            <Tooltip title="Tiempo en días para el pago del rescate una vez solicitado.">
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </Col>
@@ -181,7 +177,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                             <p>Administradora General de Fondos</p>
                         </Col>
                         <Col>
-                            <Tooltip title="Entidad que administra fondos de inversión y fondos mutuos.">
+                            <Tooltip title="AGF-Entidad que administra el fondo.">
                                 <Button shape="circle" icon={<QuestionCircleOutlined />} />
                             </Tooltip>
                         </Col>
