@@ -231,7 +231,7 @@ const MutualFundsPage = () => {
                         open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
                         width={1200} >
                         <h2 className='rescue-funds'>Mis Fondos Mutuos</h2>
-                        <h5 className='alert-message'>*El monto a rescatar es referencial. El valor cuota del rescate será del día de ejecución del rescate en Vector Capital.</h5>
+                        <h6 className='alert-message'>*El monto a rescatar es referencial. El valor cuota del rescate será del día de ejecución del rescate en Vector Capital.</h6>
                         <ListMyFunds fondos={myFunds} />
                     </Modal>
                 </Col>
