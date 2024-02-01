@@ -5,20 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import filterImage from './assets/filter.jpg';
 import './CSS/FundsFilter.css';
 
-
 const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
     const handleFiltroChange = (tipoFiltro, newValue) => {
         onFiltroChange(tipoFiltro, newValue);
     };
-
-    const handleResetFiltros = () => {
-        onFiltroChange('type', []);
-        onFiltroChange('agf', []);
-        onFiltroChange('money', []);
-        onFiltroChange('rescueability', []);
-        onFiltroChange('riskLevel', []);
-    }
 
     return (
         <div className="card  border-primary mb-3" >
@@ -207,10 +198,6 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                             </Space>
                         </Col>
                     </Row>
-
-                    {/*                <Row className='reset-filter'>
-                        <Button type="primary" ghost block onClick={() => handleResetFiltros()}>Reiniciar filtros</Button>
-                    </Row> */}
                 </div>
             </div>
         </div >

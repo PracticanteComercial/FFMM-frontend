@@ -1,21 +1,33 @@
 import { Button, Popover, Input, Typography, message } from 'antd';
 import './CSS/PopOverInvert.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
 const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
     const [investmentAmount, setInvestmentAmount] = useState(0);
+    const [inputSize, setInputSize] = useState('large');
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768) {
+                setInputSize('small');
+            } else {
+                setInputSize('large');
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const hideAndSendEmail = () => {
         setClicked(false);
         setHovered(false);
-
-        // Verifica si el input no está vacío, es positivo y es un número
         if (!investmentAmount.trim()) {
             message.error("Debe ingresar el monto a invertir.");
             return;
@@ -26,16 +38,13 @@ const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
             message.error("Ingrese un valor numérico válido para el monto.");
             return;
         }
-
         const remainingBalance = parseFloat(balance) - investmentAmount;
 
-        // Verifica si el monto de inversión es mayor que el saldo disponible
         if (remainingBalance < 0) {
             message.error("No puede invertir más dinero del que tiene disponible.");
             return;
         }
 
-        // Realiza la solicitud HTTP al backend
         fetch(`${backend_URL}/sendInvertFundEmailToExecutive`, {
             method: "POST",
             headers: {
@@ -72,42 +81,43 @@ const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
         setClicked(open);
     };
 
-    const clickContent = (
-        <div className="flex-container" style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ marginRight: '16px' }}>
-                <Typography.Title level={5}>Saldo disponible:</Typography.Title>
-                <Input
-                    className='money-input'
-                    size='large'
-                    prefix="$"
-                    suffix="CLP"
-                    disabled={true}
-                    value={balance}
-                />
-            </div>
-            <div style={{ marginRight: '16px' }}>
-                <Typography.Title level={5}>Monto a invertir:</Typography.Title>
-                <Input
-                    className='money-input'
-                    size='large'
-                    prefix="$"
-                    suffix="CLP"
-                    value={investmentAmount}
-                    onChange={(e) => setInvestmentAmount(e.target.value)}
-                />
-            </div>
-            <div>
-                <Typography.Title level={5}>Saldo restante:</Typography.Title>
-                <Input
-                    className='money-input'
-                    size='large'
-                    prefix="$"
-                    suffix="CLP"
-                    disabled={true}
-                    value={balance - investmentAmount}
-                />
-            </div>
+    const clickContent = (<>
+        <div style={{ marginRight: '16px' }}>
+            <Typography.Title level={5}>Saldo disponible:</Typography.Title>
+            <Input
+                className='money-input'
+                size={inputSize}
+                prefix="$"
+                suffix="CLP"
+                disabled={true}
+                value={balance}
+            />
         </div>
+        <div style={{ marginRight: '16px' }}>
+            <Typography.Title level={5}>Monto a invertir:</Typography.Title>
+            <Input
+                className='money-input'
+
+                size={inputSize}
+
+                prefix="$"
+                suffix="CLP"
+                value={investmentAmount}
+                onChange={(e) => setInvestmentAmount(e.target.value)}
+            />
+        </div>
+        <div>
+            <Typography.Title level={5}>Saldo restante:</Typography.Title>
+            <Input
+                className='money-input'
+                size={inputSize}
+                prefix="$"
+                suffix="CLP"
+                disabled={true}
+                value={balance - investmentAmount}
+            />
+        </div>
+    </>
     );
 
     return (
@@ -126,14 +136,14 @@ const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
                 content={
                     <div>
                         {clickContent}
-                        <Text italic>*Las inversiones antes de las 14:00 de días hábiles se reflejará en el mismo día. En caso contrario se reflejará antes del próximo día hábil.</Text>
+                        <Text italic>*Las inversiones antes de las 14:00 de días hábiles se reflejará en el mismo día.</Text>
                         <br />
-
+                        <Text italic>En caso contrario se reflejará antes del próximo día hábil.</Text>
+                        <br />
                         <Button
                             onClick={hideAndSendEmail}
                             type="primary"
-                            size='large'
-                            // danger
+                            size={inputSize}
                             ghost
                             className="centered-button"
                         >
@@ -141,14 +151,11 @@ const PopOverInvert = ({ fund, balance, clientNumber, clientName }) => {
                         </Button>
                     </div>
                 }
-                // title="Ingrese el valor"
                 trigger="click"
                 open={clicked}
                 onOpenChange={handleClickChange}
             >
-
                 <Button
-                    // type="primary" ghost 
                     shape="circle"
                     icon={<CurrencyExchangeTwoToneIcon />}
                 />

@@ -1,11 +1,10 @@
-import { MoneyCollectTwoTone, FileTextOutlined, FilePdfOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Button, Tooltip, Popover, Space, Table } from 'antd';
-import './CSS/ListFunds.css';
+import { FileTextOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { Button, Tooltip } from 'antd';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React from 'react';
 import PopOverInvert from './PopOverInvert';
 
 

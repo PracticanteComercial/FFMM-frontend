@@ -1,28 +1,21 @@
-import { Input, Typography, Popconfirm, Button, message, Tooltip } from 'antd';
-import './CSS/ListFunds.css';
 import React, { useState } from 'react';
+import { Input, Button, Popconfirm, message, Table } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-
 
 const ListMyFunds = ({ fondos }) => {
-    // Crear un array de estados para los porcentajes a rescatar de cada fondo
     const [investmentAmounts, setInvestmentAmounts] = useState(fondos.map(() => 0));
 
     const handleInvestmentAmountChange = (index, value) => {
-        // Si el valor ingresado es una cadena vacía, establecer el valor del porcentaje a 0
         if (value === '') {
             const newInvestmentAmounts = [...investmentAmounts];
             newInvestmentAmounts[index] = 0;
             setInvestmentAmounts(newInvestmentAmounts);
-            return; // Salir de la función para evitar la actualización con un valor no numérico
+            return;
         }
 
-        // Convertir el valor a un número
         const newValue = parseFloat(value);
 
-        // Verificar si el valor es un número válido y está dentro del rango de 0 a 100
         if (!isNaN(newValue) && newValue >= 0 && newValue <= 100) {
             const newInvestmentAmounts = [...investmentAmounts];
             newInvestmentAmounts[index] = newValue;
@@ -31,11 +24,9 @@ const ListMyFunds = ({ fondos }) => {
     };
 
     const handleRescue = async (fondo, porcentaje) => {
-        // Verificar si el porcentaje es igual a cero
         if (porcentaje === 0) {
-            // Mostrar una alerta indicando que el porcentaje no puede ser cero
             message.error('El porcentaje a rescatar no puede ser cero.');
-            return; // Salir de la función sin enviar la solicitud POST
+            return;
         }
 
         const data = {
@@ -60,65 +51,76 @@ const ListMyFunds = ({ fondos }) => {
         }
     };
 
+    const datacolumns = [
+        {
+            title: 'Fondo a rescatar',
+            dataIndex: 'dscInstrumento',
+            key: 'dscInstrumento',
+        },
+        {
+            title: 'Mis cuotas',
+            dataIndex: 'cantidad',
+            key: 'cantidad',
+        },
+        {
+            title: 'Valor cuota',
+            dataIndex: 'tasaPrecio',
+            key: 'tasaPrecio',
+        },
+        {
+            title: 'Monto',
+            render: (_, record) => Math.floor(record.tasaPrecio * record.cantidad),
+        },
+        {
+            title: '% de cuotas a rescatar',
+            render: (_, record, index) => (
+                <Input
+                    className='money-input'
+                    size='large'
+                    suffix="%"
+                    value={investmentAmounts[index]}
+                    onChange={(e) => handleInvestmentAmountChange(index, e.target.value)}
+                />
+            ),
+        },
+        {
+            title: 'Monto referencial de rescate',
+            render: (_, record, index) => (
+                <strong>
+                    {isNaN(record.tasaPrecio * record.cantidad * investmentAmounts[index] / 100) || investmentAmounts[index] === 0 ?
+                        0 :
+                        Math.trunc(record.tasaPrecio * record.cantidad * investmentAmounts[index] / 100)}
+                </strong>
+            ),
+        },
+        {
+            title: 'Confirmar',
+            render: (_, record, index) => (
+                <Popconfirm
+                    title="¿Estás seguro de rescatar este fondo?"
+                    onConfirm={() => handleRescue(record, investmentAmounts[index])}
+                    okText="Sí"
+                    cancelText="No"
+                >
+                    <Button type="primary" shape="circle" size="large" icon={<LogoutOutlined />} />
+                </Popconfirm>
+            ),
+        },
+    ];
+
     return (
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fondo a rescatar</th>
-                        <th>Mis cuotas</th>
-                        <th>Valor cuota
-                            <Tooltip title="Valor referencial de una cuota">
-                                <Button shape="circle" icon={<QuestionCircleOutlined />} />
-                            </Tooltip>
-                        </th>
-                        <th>Monto</th>
-                        <th>% de cuotas a rescatar</th>
-                        <th>Monto referencial de rescate</th>
-                        <th>Confirmar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {fondos.map((fondo, index) => (
-                        <tr key={fondo.idInstrumento}>
-                            <td>{fondo.dscInstrumento}</td>
-                            <td>{fondo.cantidad.toLocaleString('es-CL')}</td>
-                            <td>{new Intl.NumberFormat('es-CL', { minimumFractionDigits: 4 }).format(parseFloat(fondo.tasaPrecio))} {fondo.monedaNemotecnico}</td>
-                            <td>{Math.floor(fondo.tasaPrecio * fondo.cantidad).toLocaleString('es-CL')}</td>
-                            <td>
-                                <Input
-                                    className='money-input'
-                                    size='large'
-                                    suffix="%"
-                                    value={investmentAmounts[index]}
-                                    onChange={(e) => handleInvestmentAmountChange(index, e.target.value)}
-                                />
-                            </td>
-                            <td>
-                                <strong>
-                                    {isNaN(fondo.tasaPrecio * fondo.cantidad * investmentAmounts[index] / 100) || investmentAmounts[index] === 0 ?
-                                        0 :
-                                        Math.trunc(fondo.tasaPrecio * fondo.cantidad * investmentAmounts[index] / 100).toLocaleString('es-CL')}
-                                </strong>
-                            </td>
-
-                            <th>
-                                <Popconfirm
-                                    title="¿Estás seguro de rescatar este fondo?
-                                    El cambio de cantidad de cuota se reflejará dentro de 1 día hábil y el proceso de rescate puede demorar hasta 10 días corridos, luego el monto rescatado se depositará a tu cuenta en a lo más 1 día hábil."
-                                    onConfirm={() => handleRescue(fondo, investmentAmounts[index])}
-                                    okText="Sí"
-                                    cancelText="No"
-                                >
-                                    <Button type="primary" shape="circle" size="large" icon={<LogoutOutlined />} />
-                                </Popconfirm>
-                            </th>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <Table
+                columns={datacolumns}
+                dataSource={fondos}
+                rowKey="idInstrumento"
+                size='small'
+                scroll={{ x: 768 }}
+            />
         </div>
     )
 };
 
 export default ListMyFunds;
+
+

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Tooltip, Table } from 'antd';
-import { FileTextOutlined, FilePdfOutlined, } from '@ant-design/icons';
+import { FileTextOutlined, FilePdfOutlined } from '@ant-design/icons';
 import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import PopOverInvert from './PopOverInvert';
 import './CSS/AntdList.css';
+import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
 
-const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
+const App = ({ fondos, balance, clientNumber, clientName, loggedIn }) => {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const handleChange = (pagination, filters, sorter) => {
@@ -15,7 +16,7 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
         setSortedInfo(sorter);
     };
 
-    const columns = [
+    const datacolumns = [
         {
             title: 'Fondo',
             dataIndex: 'name',
@@ -23,19 +24,19 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
             key: 'name',
             sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
             fixed: 'left',
-            width: 140,
+            width: 100,
         },
         {
             title: 'AGF',
             key: 'agf',
             dataIndex: 'agf',
-            width: 70,
+            width: 80,
         },
         {
             title: 'Categoría',
             key: 'category',
             dataIndex: 'category',
-            width: 70,
+            width: 100,
         },
         {
             title: 'Serie',
@@ -43,7 +44,7 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
             dataIndex: 'series',
             fixed: 'center',
             align: 'center',
-            width: 70,
+            width: 55,
         },
         {
             title: 'Rentabilidad 1M',
@@ -52,7 +53,9 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
             key: 'monthly',
             sortOrder: sortedInfo.columnKey === 'monthly' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
-            width: 70,
+            width: 95,
+            align: 'center',
+
         },
         {
             title: 'Rentabilidad YTD',
@@ -61,7 +64,9 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
             sorter: (a, b) => a.ytd - b.ytd,
             sortOrder: sortedInfo.columnKey === 'ytd' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
-            width: 70,
+            width: 95,
+            align: 'center',
+
         },
         {
             title: 'Rentabilidad 12M',
@@ -70,7 +75,9 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
             key: 'yearly',
             sortOrder: sortedInfo.columnKey === 'yearly' ? sortedInfo.order : null,
             render: (text) => <span className={text.startsWith('-') ? 'rojo' : 'verde'}>{`${text}%`}</span>,
-            width: 70,
+            width: 95,
+            align: 'center',
+
         },
         {
             title: 'Nivel de Riesgo',
@@ -101,7 +108,7 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
                     />
                 </Tooltip>
             ),
-            width: 70,
+            width: 60,
             align: 'center',
         },
         {
@@ -119,40 +126,53 @@ const ListFunds = ({ fondos, balance, clientNumber, clientName }) => {
                 </Tooltip>
             ),
             align: 'center',
-            width: 100,
+            width: 60,
         },
         {
             title: 'Invertir',
             dataIndex: 'invert',
             key: 'invert',
-            render: (_, record) => <PopOverInvert fund={record} balance={balance} clientNumber={clientNumber} clientName={clientName} />,
+            render: (_, record) => {
+                if (loggedIn) {
+                    return <PopOverInvert fund={record} balance={balance} clientNumber={clientNumber} clientName={clientName} />;
+                } else {
+                    return (
+                        <Button
+                            shape="circle"
+                            icon={<CurrencyExchangeTwoToneIcon />}
+                            onClick={() => window.open('https://portalclientes.vectorcapital.cl/sign-in', '_blank')}
+                        />
+                    );
+                }
+            },
             align: 'center',
             fixed: 'right',
-            width: 70,
+            width: 65,
         },
     ];
-
-    return (
-        <div className="scrollmenu">
-            <Table
-                columns={columns}
-                dataSource={fondos}
-                onChange={handleChange}
-                rowKey="id"
-                size='small'
-                tableLayout='fixed'
-                sortDirections={["descend", "ascend", "descend"]}
-                locale={{
-                    triggerDesc: 'Ordenar ascendentemente',
-                    triggerAsc: 'Ordenar descendentemente',
-                    cancelSort: 'Cancelar ordenamiento',
-                }}
-                scroll={{
-                    x: 1300,
-                }}
-            />
-        </div>
-    );
+    return (<>
+        <Table
+            columns={datacolumns}
+            dataSource={fondos}
+            onChange={handleChange}
+            rowKey="id"
+            size='small'
+            tableLayout='fixed'
+            sortDirections={["descend", "ascend", "descend"]}
+            locale={{
+                triggerDesc: 'Ordenar ascendentemente',
+                triggerAsc: 'Ordenar descendentemente',
+                cancelSort: 'Cancelar ordenamiento',
+            }}
+            scroll={{
+                x: 1350,
+                y: 600,
+            }}
+            pagination={{
+                locale: { items_per_page: "/ página" },
+            }}
+        />
+    </>
+    )
 };
-
-export default ListFunds;
+export default App;
