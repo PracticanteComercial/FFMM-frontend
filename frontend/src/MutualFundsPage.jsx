@@ -6,7 +6,7 @@ import { Col, Row, Button, Modal } from 'antd';
 import './CSS/MutualFundsPage.css';
 import ListMyFunds from './ListMyFunds';
 import axios from 'axios';
-import Scrollable from './Scrollable';
+import FundsList from './FundsList';
 
 const backend_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -165,7 +165,7 @@ const MutualFundsPage = () => {
                         </Col>
                     </Row>
                     <Row >
-                        <Scrollable fondos={fondosFiltrados} balance={saldoDisponible} clientNumber={clientNumber} clientName={clientName} loggedIn={loggedIn} />
+                        <FundsList fondos={fondosFiltrados} balance={saldoDisponible} clientNumber={clientNumber} clientName={clientName} loggedIn={loggedIn} />
                     </Row>
                 </Col>
             </Row>

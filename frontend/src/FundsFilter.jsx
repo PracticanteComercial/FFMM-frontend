@@ -7,7 +7,7 @@ import './CSS/FundsFilter.css';
 
 const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
 
-    const handleFiltroChange = (tipoFiltro, newValue) => {
+    const handleFilterChange = (tipoFiltro, newValue) => {
         onFiltroChange(tipoFiltro, newValue);
     };
 
@@ -43,7 +43,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todos los tipos de fondo"
-                                    onChange={(newValue) => handleFiltroChange('type', newValue)}
+                                    onChange={(newValue) => handleFilterChange('type', newValue)}
                                 >
                                     {opcionesFiltro.type.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>
@@ -78,7 +78,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todo tipo de moneda"
-                                    onChange={(newValue) => handleFiltroChange('money', newValue)}
+                                    onChange={(newValue) => handleFilterChange('money', newValue)}
                                 >
                                     {opcionesFiltro.money.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>
@@ -113,7 +113,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todos los niveles"
-                                    onChange={(newValue) => handleFiltroChange('riskLevel', newValue)}
+                                    onChange={(newValue) => handleFilterChange('riskLevel', newValue)}
                                 >
                                     {opcionesFiltro.riskLevel.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>
@@ -150,7 +150,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todas las rescatabilidades"
-                                    onChange={(newValue) => handleFiltroChange('rescueability', newValue)}
+                                    onChange={(newValue) => handleFilterChange('rescueability', newValue)}
                                 >
                                     {opcionesFiltro.rescueability.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>
@@ -187,7 +187,7 @@ const FundsFilter = ({ opcionesFiltro, onFiltroChange }) => {
                                     allowClear
                                     style={{ width: '100%' }}
                                     placeholder="Todas las administradoras"
-                                    onChange={(newValue) => handleFiltroChange('agf', newValue)}
+                                    onChange={(newValue) => handleFilterChange('agf', newValue)}
                                 >
                                     {opcionesFiltro.agf.map((opcion) => (
                                         <Select.Option key={opcion} value={opcion}>

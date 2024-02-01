@@ -5,10 +5,10 @@ import lowRiskImage from './assets/low.jpg';
 import moderateRiskImage from './assets/medium.jpg';
 import highRiskImage from './assets/high.jpg';
 import PopOverInvert from './PopOverInvert';
-import './CSS/AntdList.css';
 import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
+import './CSS/FundsList.css';
 
-const App = ({ fondos, balance, clientNumber, clientName, loggedIn }) => {
+const FundsList = ({ fondos, balance, clientNumber, clientName, loggedIn }) => {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const handleChange = (pagination, filters, sorter) => {
@@ -175,4 +175,4 @@ const App = ({ fondos, balance, clientNumber, clientName, loggedIn }) => {
     </>
     )
 };
-export default App;
+export default FundsList;
